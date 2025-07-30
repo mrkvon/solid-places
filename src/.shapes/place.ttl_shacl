@@ -1,0 +1,99 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix schema: <https://schema.org/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ex: <https://example.com/shapes/> .
+
+ex:PlaceShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Place ;
+    sh:property [
+        sh:path schema:name ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:name "name" ;
+        sh:description "The name of the place"
+    ] ;
+    sh:property [
+        sh:path schema:description ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:name "description" ;
+        sh:description "A description of the place"
+    ] ;
+    sh:property [
+        sh:path schema:geo ;
+        sh:or (
+            [ sh:node ex:GeoCoordinatesShape ]
+            [ sh:node ex:GeoShapeShape ]
+        ) ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "location" ;
+        sh:description "The geographic location as either a point or area"
+    ] ;
+    sh:property [
+        sh:path foaf:topic ;
+        sh:nodeKind sh:IRI ;
+        sh:name "topics" ;
+        sh:description "Topics this place is about or related to"
+    ] ;
+    sh:property [
+        sh:path owl:sameAs ;
+        sh:nodeKind sh:IRI ;
+        sh:name "same as" ;
+        sh:description "Links to OpenStreetMap or other external resources"
+    ] .
+
+ex:GeoCoordinatesShape
+    a sh:NodeShape ;
+    sh:targetClass schema:GeoCoordinates ;
+    sh:property [
+        sh:path schema:latitude ;
+        sh:datatype xsd:decimal ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:minInclusive -90.0 ;
+        sh:maxInclusive 90.0 ;
+        sh:name "latitude"
+    ] ;
+    sh:property [
+        sh:path schema:longitude ;
+        sh:datatype xsd:decimal ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:minInclusive -180.0 ;
+        sh:maxInclusive 180.0 ;
+        sh:name "longitude"
+    ] .
+
+ex:GeoShapeShape
+    a sh:NodeShape ;
+    sh:targetClass schema:GeoShape ;
+    sh:or (
+        [
+            sh:property [
+                sh:path schema:polygon ;
+                sh:datatype xsd:string ;
+                sh:minCount 1 ;
+                sh:maxCount 1
+            ]
+        ]
+        [
+            sh:property [
+                sh:path schema:box ;
+                sh:datatype xsd:string ;
+                sh:minCount 1 ;
+                sh:maxCount 1
+            ]
+        ]
+        [
+            sh:property [
+                sh:path schema:circle ;
+                sh:datatype xsd:string ;
+                sh:minCount 1 ;
+                sh:maxCount 1
+            ]
+        ]
+    ) .
