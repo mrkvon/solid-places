@@ -1,4 +1,5 @@
 <script lang="ts">
+  import PlaceItem from '$lib/components/place-item.svelte'
   import { useMatchSubject } from '$lib/ldoSvelte'
   import { placeResources } from '$lib/stores/places'
   import { rdf, schema_https } from 'rdf-namespaces'
@@ -40,7 +41,7 @@
 
 <ul>
   {#each $data as place}
-    <li>{place.name}</li>
+    <li><PlaceItem {place} /></li>
   {/each}
 </ul>
 <!-- <ul>

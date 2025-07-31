@@ -7,7 +7,9 @@ const config = {
   // Consult https://svelte.dev/docs/kit/integrations
   // for more information about preprocessors
   preprocess: sequence([vitePreprocess(), preprocessMeltUI()]),
-  kit: { adapter: adapter() },
+  kit: {
+    adapter: adapter({ fallback: 'index.html' }),
+  },
 }
 
 export default config

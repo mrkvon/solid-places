@@ -1,0 +1,14 @@
+/* @import 'sanitize.css'; */
+@import 'sanitize.css/forms.css';
+@import 'sanitize.css/typography.css';
+@import './preflight.css';
+
+button {
+  cursor: pointer;
+}
+
+input {
+  border: 1px solid lightgray;
+  border-radius: 0.25rem;
+  padding: 0.125rem 0.5rem;
+}

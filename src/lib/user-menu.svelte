@@ -1,9 +1,12 @@
 <script lang="ts">
   import { session } from '$lib/stores/session'
   import { logout } from '@inrupt/solid-client-authn-browser'
+  import { LogOut } from '@lucide/svelte'
   import { createDropdownMenu } from '@melt-ui/svelte'
   import { FoafProfileShapeType } from '../.ldo/foafProfile.shapeTypes'
-  import { dataset, useResource, useSubject } from './ldoSvelte'
+  import { useResource, useSubject } from './ldoSvelte'
+
+  let { children } = $props()
 
   const {
     elements: { menu, item, trigger },
@@ -14,18 +17,17 @@
     globalThis.location.href = '/'
   }
 
-  $: dataset.setContext('solid', { fetch: $session.fetch })
-
   const resource = useResource($session.info.webId)
   const profile = useSubject(FoafProfileShapeType, $session.info.webId)
 
-  $: name = $profile?.name
+  const name = $derived($profile?.name)
 </script>
 
-<button {...$trigger} use:trigger>{name}</button>
-<div {...$menu} use:menu class="menu">
+{@render children({ trigger })}
+
+<div {...$menu} use:menu class="menu" aria-label="User menu">
   <div {...$item} use:item>{name}</div>
-  <div {...$item} use:item on:m-click={signOut}>Sign out</div>
+  <div {...$item} use:item on:m-click={signOut}><LogOut aria-hidden="true" /> Sign out</div>
 </div>
 
 <style>
