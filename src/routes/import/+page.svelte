@@ -102,6 +102,7 @@
         (p, i) => i < j && p !== place && haversine(p.geo, place.geo) < 50,
       )}
       <li>
+        {place.name}
         <PlaceItem {place}>
           <div class="controls">
             {#if duplicateOf}duplicate of {duplicateOf.name}{/if}

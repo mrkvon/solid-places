@@ -26,7 +26,7 @@
   </div>
 </div>
 
-<style lang="scss">
+<style>
   .place {
     padding: 0.5rem;
     background-color: white;
@@ -36,8 +36,9 @@
 
   .info {
     flex: auto;
-    header {
-      font-weight: bold;
-    }
+  }
+
+  .info header {
+    font-weight: bold;
   }
 </style>
