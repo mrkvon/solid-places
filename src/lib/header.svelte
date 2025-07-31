@@ -69,27 +69,29 @@
 
 <!-- <pre>{JSON.stringify($session, null, 2)}</pre> -->
 
-<style lang="scss">
+<style>
   .header {
     padding: 0.25rem;
 
     display: flex;
     gap: 0.25rem;
+  }
 
-    a,
-    .loading,
-    button {
-      padding: 0.5rem;
-      border-radius: 0.25rem;
+  .header a,
+  .header .loading,
+  .header button {
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+  }
 
-      &:hover {
-        background-color: lightpink;
-      }
-    }
+  .header a:hover,
+  .header .loading:hover,
+  .header button:hover {
+    background-color: lightpink;
+  }
 
-    .spacer {
-      flex-grow: 1;
-    }
+  .header .spacer {
+    flex-grow: 1;
   }
 
   :global(.spinning) {
