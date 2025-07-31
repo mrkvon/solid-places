@@ -20,16 +20,14 @@
 
   const { createData, commitData } = useLdo()
 
-  $: {
-    if ($session.info.webId) {
-      getStorageFromWebId($session.info.webId as SolidLeafUri, dataset).then(
-        (storageContainerResult) => {
-          if (!storageContainerResult.isError) {
-            storages = storageContainerResult.storageContainers
-          }
-        },
-      )
-    }
+  $: if ($session.info.webId) {
+    getStorageFromWebId($session.info.webId as SolidLeafUri, dataset).then(
+      (storageContainerResult) => {
+        if (!storageContainerResult.isError) {
+          storages = storageContainerResult.storageContainers
+        }
+      },
+    )
   }
 
   const onSubmit = async (event: SubmitEvent) => {

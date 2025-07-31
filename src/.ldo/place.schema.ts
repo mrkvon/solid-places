@@ -1,4 +1,4 @@
-import { Schema } from 'shexj'
+import { Schema } from "shexj";
 
 /**
  * =============================================================================
@@ -6,114 +6,147 @@ import { Schema } from 'shexj'
  * =============================================================================
  */
 export const placeSchema: Schema = {
-  type: 'Schema',
+  type: "Schema",
   shapes: [
     {
-      id: 'https://ldo.js.org/Place',
-      type: 'ShapeDecl',
+      id: "https://ldo.js.org/Place",
+      type: "ShapeDecl",
       shapeExpr: {
-        type: 'Shape',
+        type: "Shape",
         expression: {
-          type: 'EachOf',
+          type: "EachOf",
           expressions: [
             {
-              type: 'TripleConstraint',
-              predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
+              type: "TripleConstraint",
+              predicate: "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
               valueExpr: {
-                type: 'NodeConstraint',
-                values: ['https://schema.org/Place'],
+                type: "NodeConstraint",
+                values: ["https://schema.org/Place"],
               },
             },
             {
-              type: 'TripleConstraint',
-              predicate: 'https://schema.org/name',
+              type: "TripleConstraint",
+              predicate: "https://schema.org/name",
               valueExpr: {
-                type: 'NodeConstraint',
-                datatype: 'http://www.w3.org/2001/XMLSchema#string',
+                type: "NodeConstraint",
+                datatype: "http://www.w3.org/2001/XMLSchema#string",
               },
             },
             {
-              type: 'TripleConstraint',
-              predicate: 'https://schema.org/description',
+              type: "TripleConstraint",
+              predicate: "https://schema.org/description",
               valueExpr: {
-                type: 'NodeConstraint',
-                datatype: 'http://www.w3.org/2001/XMLSchema#string',
+                type: "NodeConstraint",
+                datatype: "http://www.w3.org/2001/XMLSchema#string",
               },
               min: 0,
               max: 1,
             },
             {
-              type: 'TripleConstraint',
-              predicate: 'https://schema.org/geo',
+              type: "TripleConstraint",
+              predicate: "https://schema.org/geo",
               valueExpr: {
-                type: 'ShapeOr',
-                shapeExprs: ['https://ldo.js.org/GeoCoordinates', 'https://ldo.js.org/GeoShape'],
+                type: "ShapeOr",
+                shapeExprs: [
+                  "https://ldo.js.org/GeoCoordinates",
+                  "https://ldo.js.org/GeoShape",
+                ],
               },
             },
             {
-              type: 'TripleConstraint',
-              predicate: 'http://xmlns.com/foaf/0.1/topic',
+              type: "TripleConstraint",
+              predicate: "http://xmlns.com/foaf/0.1/topic",
               valueExpr: {
-                type: 'NodeConstraint',
-                nodeKind: 'iri',
+                type: "NodeConstraint",
+                nodeKind: "iri",
               },
               min: 0,
               max: -1,
             },
             {
-              type: 'TripleConstraint',
-              predicate: 'http://www.w3.org/2002/07/owl#sameAs',
+              type: "TripleConstraint",
+              predicate: "http://www.w3.org/2002/07/owl#sameAs",
               valueExpr: {
-                type: 'NodeConstraint',
-                nodeKind: 'iri',
+                type: "NodeConstraint",
+                nodeKind: "iri",
               },
               min: 0,
               max: -1,
             },
             {
-              type: 'TripleConstraint',
-              predicate: 'http://www.w3.org/2000/01/rdf-schema#seeAlsoseeAlso',
+              type: "TripleConstraint",
+              predicate: "http://www.w3.org/2000/01/rdf-schema#seeAlsoseeAlso",
               valueExpr: {
-                type: 'NodeConstraint',
-                nodeKind: 'iri',
+                type: "NodeConstraint",
+                nodeKind: "iri",
               },
               min: 0,
               max: -1,
+            },
+            {
+              type: "TripleConstraint",
+              predicate: "http://purl.org/dc/terms/created",
+              valueExpr: {
+                type: "NodeConstraint",
+                datatype: "http://www.w3.org/2001/XMLSchema#dateTime",
+              },
+              min: 0,
+              max: 1,
+            },
+            {
+              type: "TripleConstraint",
+              predicate: "http://purl.org/dc/terms/modified",
+              valueExpr: {
+                type: "NodeConstraint",
+                datatype: "http://www.w3.org/2001/XMLSchema#dateTime",
+              },
+              min: 0,
+              max: -1,
+            },
+            {
+              type: "TripleConstraint",
+              predicate: "http://purl.org/dc/terms/creator",
+              valueExpr: {
+                type: "NodeConstraint",
+                nodeKind: "iri",
+              },
+              min: 0,
+              max: 1,
             },
           ],
         },
       },
     },
     {
-      id: 'https://ldo.js.org/GeoCoordinates',
-      type: 'ShapeDecl',
+      id: "https://ldo.js.org/GeoCoordinates",
+      type: "ShapeDecl",
       shapeExpr: {
-        type: 'Shape',
+        type: "Shape",
         expression: {
-          type: 'EachOf',
+          type: "EachOf",
           expressions: [
             {
-              type: 'TripleConstraint',
-              predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
+              type: "TripleConstraint",
+              predicate: "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
               valueExpr: {
-                type: 'NodeConstraint',
-                values: ['https://schema.org/GeoCoordinates'],
+                type: "NodeConstraint",
+                values: ["https://schema.org/GeoCoordinates"],
               },
             },
             {
-              type: 'TripleConstraint',
-              predicate: 'https://schema.org/latitude',
+              type: "TripleConstraint",
+              predicate: "https://schema.org/latitude",
               valueExpr: {
-                type: 'NodeConstraint',
-                datatype: 'http://www.w3.org/2001/XMLSchema#decimal',
+                type: "NodeConstraint",
+                datatype: "http://www.w3.org/2001/XMLSchema#decimal",
               },
             },
             {
-              type: 'TripleConstraint',
-              predicate: 'https://schema.org/longitude',
+              type: "TripleConstraint",
+              predicate: "https://schema.org/longitude",
               valueExpr: {
-                type: 'NodeConstraint',
-                datatype: 'http://www.w3.org/2001/XMLSchema#decimal',
+                type: "NodeConstraint",
+                datatype: "http://www.w3.org/2001/XMLSchema#decimal",
               },
             },
           ],
@@ -121,46 +154,46 @@ export const placeSchema: Schema = {
       },
     },
     {
-      id: 'https://ldo.js.org/GeoShape',
-      type: 'ShapeDecl',
+      id: "https://ldo.js.org/GeoShape",
+      type: "ShapeDecl",
       shapeExpr: {
-        type: 'Shape',
+        type: "Shape",
         expression: {
-          type: 'EachOf',
+          type: "EachOf",
           expressions: [
             {
-              type: 'TripleConstraint',
-              predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
+              type: "TripleConstraint",
+              predicate: "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
               valueExpr: {
-                type: 'NodeConstraint',
-                values: ['https://schema.org/GeoShape'],
+                type: "NodeConstraint",
+                values: ["https://schema.org/GeoShape"],
               },
             },
             {
-              type: 'OneOf',
+              type: "OneOf",
               expressions: [
                 {
-                  type: 'TripleConstraint',
-                  predicate: 'https://schema.org/polygon',
+                  type: "TripleConstraint",
+                  predicate: "https://schema.org/polygon",
                   valueExpr: {
-                    type: 'NodeConstraint',
-                    datatype: 'http://www.w3.org/2001/XMLSchema#string',
+                    type: "NodeConstraint",
+                    datatype: "http://www.w3.org/2001/XMLSchema#string",
                   },
                 },
                 {
-                  type: 'TripleConstraint',
-                  predicate: 'https://schema.org/box',
+                  type: "TripleConstraint",
+                  predicate: "https://schema.org/box",
                   valueExpr: {
-                    type: 'NodeConstraint',
-                    datatype: 'http://www.w3.org/2001/XMLSchema#string',
+                    type: "NodeConstraint",
+                    datatype: "http://www.w3.org/2001/XMLSchema#string",
                   },
                 },
                 {
-                  type: 'TripleConstraint',
-                  predicate: 'https://schema.org/circle',
+                  type: "TripleConstraint",
+                  predicate: "https://schema.org/circle",
                   valueExpr: {
-                    type: 'NodeConstraint',
-                    datatype: 'http://www.w3.org/2001/XMLSchema#string',
+                    type: "NodeConstraint",
+                    datatype: "http://www.w3.org/2001/XMLSchema#string",
                   },
                 },
               ],
@@ -170,4 +203,4 @@ export const placeSchema: Schema = {
       },
     },
   ],
-}
+};

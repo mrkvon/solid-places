@@ -1,5 +1,6 @@
 <script lang="ts">
   import Header from '$lib/header.svelte'
+  import '../app.css'
 
   let { children } = $props()
 </script>
@@ -27,10 +28,11 @@
   }
 
   .header {
-    background-color: yellow;
+    background-color: white;
   }
+
   .main {
-    background-color: pink;
+    background-color: white;
     position: relative;
   }
 </style>
