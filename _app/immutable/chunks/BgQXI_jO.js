@@ -1,0 +1,1 @@
+import{ap as t,r as S,u as b,S as h,al as k}from"./Cdb33sNi.js";function u(r,i){return r===i||r?.[k]===i}function d(r={},i,f,T){return t(()=>{var a,s;return S(()=>{a=s,s=[],b(()=>{r!==f(...s)&&(i(r,...s),a&&u(f(...a),r)&&i(null,...a))})}),()=>{h(()=>{s&&u(f(...s),r)&&i(null,...s)})}}),r}export{d as b};
