@@ -60,7 +60,9 @@
       {/snippet}
     </UserMenu>
   {:else}
-    <button onclick={openDialog}><LogIn aria-label="sign in" aria-hidden="true" /></button>
+    <button onclick={openDialog} aria-label="Sign In" title="Sign In">
+      <LogIn aria-hidden="true" />
+    </button>
   {/if}
 </nav>
 <dialog bind:this={dialog}>
