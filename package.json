@@ -1,5 +1,5 @@
 {
-  "name": "myplaces",
+  "name": "solid-places",
   "private": true,
   "version": "0.0.1",
   "type": "module",
@@ -29,6 +29,7 @@
     "@types/jsonld": "^1.5.15",
     "@types/leaflet": "^1.9.20",
     "@types/shexj": "^2.1.7",
+    "css-authn": "^0.3.0",
     "eslint": "^9.18.0",
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-svelte": "^3.0.0",
