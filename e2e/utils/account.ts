@@ -21,7 +21,7 @@ export const createRandomAccount = async () => {
     return authFetch(...props)
   }
 
-  return { ...account, provider: account.idp, authFetch: authenticatedFetch }
+  return { ...account, provider: account.idp, fetch: authenticatedFetch }
 }
 
 export const signIn = async (
@@ -32,11 +32,11 @@ export const signIn = async (
   await page.getByRole('button', { name: 'Sign In' }).click()
   await page.getByRole('textbox', { name: 'Identity Provider' }).fill(account.idp)
   await page.getByRole('button', { name: 'Sign In' }).last().click()
-  try {
-    await page.getByRole('button', { name: 'Use a different account' }).click({ timeout: 3000 })
-  } catch {
-    //
-  }
+  // try {
+  //   await page.getByRole('button', { name: 'Use a different account' }).click({ timeout: 3000 })
+  // } catch {
+  //   //
+  // }
   await page.getByRole('textbox', { name: 'Email' }).fill(account.email)
   await page.getByRole('textbox', { name: 'Password' }).fill(account.password)
   await page.getByRole('button', { name: 'Log in' }).click()

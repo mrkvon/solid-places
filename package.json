@@ -19,6 +19,7 @@
   "devDependencies": {
     "@eslint/compat": "^1.2.5",
     "@eslint/js": "^9.18.0",
+    "@faker-js/faker": "^9.9.0",
     "@ldo/cli": "^1.0.0-alpha.29",
     "@melt-ui/pp": "^0.3.2",
     "@melt-ui/svelte": "^0.86.6",
