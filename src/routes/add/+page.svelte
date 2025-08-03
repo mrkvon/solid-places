@@ -1,8 +1,7 @@
 <script lang="ts">
   import { goto } from '$app/navigation'
-  import { dataset, useLdo } from '$lib/ldoSvelte'
-  import { session } from '$lib/stores/session'
-  import { getStorageFromWebId, type SolidContainer, type SolidLeafUri } from '@ldo/connected-solid'
+  import { useLdo } from '$lib/ldoSvelte'
+  import { storages } from '$lib/stores/storages'
   import { set } from '@ldo/ldo'
   import { PlaceShapeType } from '../../.ldo/place.shapeTypes'
 
@@ -16,24 +15,12 @@
   const defaultData: FormData = { name: '', description: '', latitude: null, longitude: null }
   let formData = defaultData
 
-  let storages: SolidContainer[] = []
-
   const { createData, commitData } = useLdo()
-
-  $: if ($session.info.webId) {
-    getStorageFromWebId($session.info.webId as SolidLeafUri, dataset).then(
-      (storageContainerResult) => {
-        if (!storageContainerResult.isError) {
-          storages = storageContainerResult.storageContainers
-        }
-      },
-    )
-  }
 
   const onSubmit = async (event: SubmitEvent) => {
     event.preventDefault()
 
-    const storage = storages[0]
+    const storage = $storages[0]
     const childResult = await storage.createChildIfAbsent('places/')
     if (childResult.isError) throw childResult
     const placeResult = await childResult.resource.createChildIfAbsent(
@@ -80,7 +67,7 @@
     bind:value={formData.longitude}
     required
   />
-  <input type="submit" value="Add place" disabled={storages.length === 0} />
+  <input type="submit" value="Add place" disabled={$storages.length === 0} />
 </form>
 
 <pre>{JSON.stringify(formData, null, 2)}</pre>
