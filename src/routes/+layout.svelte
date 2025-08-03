@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Toaster from '$lib/components/toast.svelte'
   import Header from '$lib/header.svelte'
   import '../app.css'
 
@@ -13,6 +14,8 @@
     {@render children()}
   </main>
 </div>
+
+<Toaster />
 
 <style>
   :global(html, body) {

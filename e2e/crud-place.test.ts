@@ -29,6 +29,8 @@ test.describe('C(R)UD place', () => {
 
     // and if confirmed, delete the place
     // inform about the successful deletion
+    await expect(page.getByTestId('toast-container').getByRole('alert')).toHaveCount(1)
+    await expect(page.getByTestId('toast-container').getByRole('alert')).toContainText('Success')
     // then one of the places is not there anymore
     await expect(items).toHaveCount(9)
   })

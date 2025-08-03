@@ -1,5 +1,6 @@
 <script lang="ts">
   import PlaceItem from '$lib/components/place-item.svelte'
+  import { addToast, ToastType } from '$lib/components/toast.svelte'
   import { dataset, useMatchSubject } from '$lib/ldoSvelte'
   import { placeResources } from '$lib/stores/places'
   import { session } from '$lib/stores/session'
@@ -18,20 +19,42 @@
   }
 
   const handleDelete = async (place: Place) => {
+    const { name } = place
     const result = globalThis.confirm(
-      `Do you really want to delete place ${place.name} (${place['@id']})?`,
+      `Do you really want to delete place ${name} (${place['@id']})?`,
     )
 
     if (result) {
       const resource = dataset.getResource(place['@id']!)
       if (resource.isError) throw resource
-      await deleteResource(resource as SolidLeaf, { fetch: $session.fetch, dataset })
+      const deletionResult = await deleteResource(resource as SolidLeaf, {
+        fetch: $session.fetch,
+        dataset,
+      })
+
+      if (deletionResult.isError) {
+        addToast({
+          data: {
+            type: ToastType.error,
+            title: 'Deletion failed',
+            description: deletionResult.name,
+          },
+        })
+      } else {
+        addToast({
+          data: {
+            type: ToastType.success,
+            title: 'Deletion successful',
+            description: `Deleted place ${name}`,
+          },
+        })
+      }
     }
   }
 </script>
 
 <ul data-testid="place-list">
-  {#each $data as place}
+  {#each $data as place (place['@id'])}
     <li>
       <PlaceItem {place}>
         <div class="controls">

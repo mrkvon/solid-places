@@ -15,7 +15,9 @@
 </script>
 
 <div class="place">
-  <PlaceMap {geometry} --width="120px" --height="120px" />
+  <div>
+    <PlaceMap {geometry} --width="120px" --height="120px" />
+  </div>
   <div class="info">
     <date>{place.created}</date>
     <header>{place.name}</header>
@@ -32,6 +34,11 @@
     background-color: white;
     display: flex;
     gap: 0.5rem;
+    transition: background-color 0.2s ease;
+  }
+
+  .place:hover {
+    background-color: #eee;
   }
 
   .info {

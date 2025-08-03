@@ -87,6 +87,7 @@
   .header button {
     padding: 0.5rem;
     border-radius: 0.25rem;
+    transition: background-color 0.2s ease;
   }
 
   .header a:hover,

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { browser } from '$app/environment'
   import type { Geometry } from 'geojson'
-  import { type LatLngTuple } from 'leaflet'
+  import type { LatLngTuple } from 'leaflet'
   import { onMount } from 'svelte'
 
   const { geometry }: { geometry: Geometry } = $props()
