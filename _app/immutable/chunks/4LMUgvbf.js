@@ -1,0 +1,1 @@
+import{aj as t,r as b,u as h,M as k,af as M}from"./DhiKox93.js";function u(r,f){return r===f||r?.[M]===f}function c(r={},f,a,S){return t(()=>{var i,s;return b(()=>{i=s,s=[],h(()=>{r!==a(...s)&&(f(r,...s),i&&u(a(...i),r)&&f(null,...i))})}),()=>{k(()=>{s&&u(a(...s),r)&&f(null,...s)})}}),r}export{c as b};
