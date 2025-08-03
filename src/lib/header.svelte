@@ -25,8 +25,11 @@
   let redirectHandled = $state(false)
 
   onMount(async () => {
-    await $session.handleIncomingRedirect({ restorePreviousSession: true })
-    redirectHandled = true
+    try {
+      await $session.handleIncomingRedirect({ restorePreviousSession: true })
+    } finally {
+      redirectHandled = true
+    }
   })
 
   let dialog: HTMLDialogElement

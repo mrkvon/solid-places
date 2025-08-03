@@ -8,6 +8,10 @@ test.describe('Solid auth', () => {
     await expect(page.getByRole('button', { name: 'User Menu' })).toBeVisible()
   })
 
+  test.fixme('redirect to the same page after sign in', () => {})
+
+  test.fixme('stay on the same page after refresh', () => {})
+
   test('sign out', async ({ page }) => {
     const account = await createRandomAccount()
     await signIn(page, account)
