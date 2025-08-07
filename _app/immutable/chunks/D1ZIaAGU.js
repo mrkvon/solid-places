@@ -1,0 +1,1 @@
+import{ag as h,ah as t,T,G as b,ad as d}from"./BprpeBWN.js";function u(r,a){return r===a||r?.[d]===a}function c(r={},a,f,k){return h(()=>{var i,s;return t(()=>{i=s,s=[],T(()=>{r!==f(...s)&&(a(r,...s),i&&u(f(...i),r)&&a(null,...i))})}),()=>{b(()=>{s&&u(f(...s),r)&&a(null,...s)})}}),r}export{c as b};
