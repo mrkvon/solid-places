@@ -3,9 +3,10 @@
   import { useLdo } from '$lib/ldoSvelte'
   import { session } from '$lib/stores/session'
   import { deleteResource, SolidLeaf } from '@ldo/connected-solid'
-  import { LockKeyhole, Pencil, Trash2, X } from '@lucide/svelte'
+  import { Pencil, Trash2, X } from '@lucide/svelte'
   import { createDialog } from '@melt-ui/svelte'
   import type { GeoCoordinates, Place } from '../../.ldo/place.typings'
+  import PlaceVisibility from './place-visibility.svelte'
 
   const { place }: { place: Place } = $props()
 
@@ -79,19 +80,12 @@
 </script>
 
 <div class="controls">
-  <button
-    aria-label="Privacy and sharing: Private"
-    onclick={() => {
-      alert('privacy and sharing not implemented')
-    }}
-  >
-    <LockKeyhole aria-disabled="true" />
-  </button>
+  <PlaceVisibility {place} />
   <button aria-label="Edit place" {...$trigger} use:trigger>
-    <Pencil aria-disabled="true" />
+    <Pencil aria-hidden="true" />
   </button>
   <button aria-label="Delete place" onclick={handleDelete}>
-    <Trash2 aria-disabled="true" />
+    <Trash2 aria-hidden="true" />
   </button>
 </div>
 
@@ -183,5 +177,12 @@
   .field {
     display: flex;
     flex-direction: column;
+  }
+
+  /* Combobox */
+  .cb-menu {
+    z-index: 1000;
+    background-color: white;
+    border: 10px solid pink;
   }
 </style>

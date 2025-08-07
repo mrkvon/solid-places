@@ -39,8 +39,8 @@ export const placeContext: LdoJsonldContext = {
         "@type": "@id",
         "@isCollection": true,
       },
-      seeAlsoseeAlso: {
-        "@id": "http://www.w3.org/2000/01/rdf-schema#seeAlsoseeAlso",
+      seeAlso: {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#seeAlso",
         "@type": "@id",
         "@isCollection": true,
       },
@@ -127,8 +127,8 @@ export const placeContext: LdoJsonldContext = {
     "@type": "@id",
     "@isCollection": true,
   },
-  seeAlsoseeAlso: {
-    "@id": "http://www.w3.org/2000/01/rdf-schema#seeAlsoseeAlso",
+  seeAlso: {
+    "@id": "http://www.w3.org/2000/01/rdf-schema#seeAlso",
     "@type": "@id",
     "@isCollection": true,
   },

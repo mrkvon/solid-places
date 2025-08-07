@@ -55,7 +55,7 @@
 
     if (file) {
       text = await file.text()
-      console.log('File content:', text)
+      // console.log('File content:', text)
     }
   }
 
@@ -115,8 +115,6 @@
     {/each}
   </ul>
 </form>
-
-<!-- <pre>{JSON.stringify(result, null, 2)}</pre> -->
 
 <style>
   .controls {

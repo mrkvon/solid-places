@@ -28,7 +28,6 @@ test.describe('C(R)UD place', () => {
     // I can update the place name, description, location
     await page.getByRole('textbox', { name: 'name' }).fill('New location name')
     await page.getByRole('textbox', { name: 'description' }).fill('New location description')
-    // TODO update also location
 
     // and hit save
     await page.getByRole('button', { name: 'Update place' }).click()
@@ -39,6 +38,10 @@ test.describe('C(R)UD place', () => {
     await expect(items.nth(3)).toContainText('New location name')
     await expect(items.nth(3)).toContainText('New location description')
   })
+
+  // maybe implement these as part of the general update, or separately
+  test.fixme('update also location', () => {})
+  test.fixme('update also topics (add and remove topics from wikidata)', () => {})
 
   test('can delete my place', async ({ page }) => {
     const account = await createRandomAccount()

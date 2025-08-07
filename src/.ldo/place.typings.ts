@@ -24,7 +24,7 @@ export interface Place {
   sameAs?: LdSet<{
     "@id": string;
   }>;
-  seeAlsoseeAlso?: LdSet<{
+  seeAlso?: LdSet<{
     "@id": string;
   }>;
   created?: string;

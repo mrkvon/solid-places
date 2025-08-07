@@ -72,8 +72,6 @@
   <ProviderForm onsave={(data) => signIn(data.provider)} />
 </dialog>
 
-<!-- <pre>{JSON.stringify($session, null, 2)}</pre> -->
-
 <style>
   .header {
     padding: 0.25rem;

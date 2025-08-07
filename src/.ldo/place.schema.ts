@@ -75,7 +75,7 @@ export const placeSchema: Schema = {
             },
             {
               type: "TripleConstraint",
-              predicate: "http://www.w3.org/2000/01/rdf-schema#seeAlsoseeAlso",
+              predicate: "http://www.w3.org/2000/01/rdf-schema#seeAlso",
               valueExpr: {
                 type: "NodeConstraint",
                 nodeKind: "iri",
