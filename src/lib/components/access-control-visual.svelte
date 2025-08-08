@@ -1,36 +1,14 @@
 <script lang="ts">
-  import { addToast, ToastType } from '$lib/components/toast.svelte'
-  import { useLdo, useResource } from '$lib/ldoSvelte'
-  import { session } from '$lib/stores/session'
-  import {
-    GetWacRuleSuccess,
-    getWacUri,
-    SolidContainer,
-    SolidLeaf,
-    type WacRule,
-  } from '@ldo/connected-solid'
+  import type { WacRule } from '@ldo/connected-solid'
   import { Earth, LoaderCircle, LockKeyhole, UsersRound, X } from '@lucide/svelte'
   import { createDialog } from '@melt-ui/svelte'
-  import { FoafProfileShapeType } from '../../.ldo/foafProfile.shapeTypes'
-  import type { Place } from '../../.ldo/place.typings'
   import SelectPeople from './select-people.svelte'
 
-  const { place }: { place: Place } = $props()
-
-  const placeResource = useResource(place['@id'])
-  let wac = $state<GetWacRuleSuccess<SolidLeaf | SolidContainer>>()
-
-  let isOwner = $derived(wac?.wacRule.agent[$session.info.webId!].control)
-
-  $effect(() => {
-    ;($placeResource as SolidLeaf).getWac().then((wacResult) => {
-      if (wacResult.isError) throw wacResult
-      wac = wacResult
-    })
-  })
-  ;($placeResource as SolidLeaf)
-    .getWac({ ignoreCache: false })
-    .then((result) => !result.isError && result.wacRule.public)
+  let {
+    wac, // wac of the resource in LDO format
+    onchangewac, // run when access control is updating
+    self, // signed in user webId
+  }: { wac?: WacRule; onchangewac: (wac?: WacRule) => Promise<void>; self: string } = $props()
 
   const {
     elements: { trigger, portalled, overlay, content, title, description, close },
@@ -44,13 +22,11 @@
   }
 
   let visibility: VisibilityOption | undefined = $derived(
-    !wac?.wacRule
+    !wac
       ? undefined
-      : wac.wacRule.public.read
+      : wac.public.read
         ? VisibilityOption.public
-        : Object.entries(wac.wacRule.agent).some(
-              ([webId, rule]) => webId !== $session.info.webId && rule.read,
-            )
+        : Object.entries(wac.agent).some(([webId, rule]) => webId !== self && rule.read)
           ? VisibilityOption.shared
           : VisibilityOption.private,
   )
@@ -64,26 +40,22 @@
     visibilityFormData.visibility = visibility
   })
 
+  let isOwner = $derived(Boolean(wac?.agent[self].control))
+
   $effect(() => {
     if (!wac) return
-    const sharedWith = Object.entries(wac.wacRule.agent)
-      .filter(([webId, rules]) => webId !== $session.info.webId && rules.read === true)
+    const sharedWith = Object.entries(wac.agent)
+      .filter(([webId, rules]) => webId !== self && rules.read === true)
       .map(([webId]) => webId)
 
     visibilityFormData.selected = sharedWith
   })
 
-  const { getResource, getSubject } = useLdo()
-
   const handleUpdateVisibility = async (e: SubmitEvent) => {
     e.preventDefault()
 
-    if ($placeResource?.type !== 'SolidLeaf') throw new Error('not a leaf')
-
-    if (!wac?.wacRule) throw new Error()
-    let updatedWac: WacRule | undefined = JSON.parse(JSON.stringify(wac.wacRule))
-    let previousWac: WacRule = JSON.parse(JSON.stringify(wac.wacRule))
-    let previousVisibility = visibility
+    if (!wac) throw new Error()
+    let updatedWac: WacRule | undefined = JSON.parse(JSON.stringify(wac))
 
     if (visibilityFormData.visibility === VisibilityOption.public) {
       updatedWac!.public.read = true
@@ -93,7 +65,7 @@
     ) {
       updatedWac!.public.read = false
       for (let webId in updatedWac!.agent) {
-        if (webId !== $session.info.webId) {
+        if (webId !== self) {
           updatedWac!.agent[webId].read = false
         }
       }
@@ -105,54 +77,10 @@
       updatedWac = undefined
     }
 
-    if (updatedWac === undefined) {
-      const wacUriResult = await getWacUri($placeResource, { fetch: $session.fetch })
-      if (wacUriResult.isError) throw wacUriResult
-      const wacUri = wacUriResult.wacUri
-      const resource = getResource(wacUri)
-      await resource.delete()
-    } else {
-      await $placeResource.setWac(updatedWac)
-    }
-    const wacResult = await $placeResource.getWac({ ignoreCache: true })
-    if (wacResult.isError) throw wacResult
-    wac = wacResult
+    await onchangewac(updatedWac)
+
     // close the modal
     $open = false
-    const savedRule = wacResult.wacRule
-    addToast({
-      data: {
-        title: 'Update successful',
-        description: `Access was updated to ${visibility}`,
-        type: ToastType.success,
-      },
-    })
-
-    if (previousWac.public.read !== savedRule.public.read)
-      addToast({
-        data: {
-          title: 'TODO Notification successful',
-          description: `Public geoindex was notified`,
-          type: ToastType.success,
-        },
-      })
-
-    // TODO figure out when to notify based on previous and current visibility
-    // now find out which agents to notify
-    const currentAgents = Object.keys(savedRule.agent)
-    const previousAgents = Object.keys(previousWac.agent)
-    // notify about addition
-    for (let agent of currentAgents) {
-      if (!previousAgents.includes(agent))
-        addToast({
-          data: {
-            title: 'TODO Notification successful',
-            description: `${getSubject(FoafProfileShapeType, agent)?.name} was notified`,
-            type: ToastType.success,
-          },
-        })
-    }
-    // TODO notify about deletion
   }
 </script>
 

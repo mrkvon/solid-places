@@ -6,7 +6,7 @@
   import { Pencil, Trash2, X } from '@lucide/svelte'
   import { createDialog } from '@melt-ui/svelte'
   import type { GeoCoordinates, Place } from '../../.ldo/place.typings'
-  import PlaceVisibility from './place-visibility.svelte'
+  import AccessControl from './access-control.svelte'
 
   const { place }: { place: Place } = $props()
 
@@ -80,7 +80,7 @@
 </script>
 
 <div class="controls">
-  <PlaceVisibility {place} />
+  <AccessControl uri={place['@id']!} />
   <button aria-label="Edit place" {...$trigger} use:trigger>
     <Pencil aria-hidden="true" />
   </button>
