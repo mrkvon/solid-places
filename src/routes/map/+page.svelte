@@ -1,16 +1,24 @@
 <script lang="ts">
+  import { runPlacesQuery } from '$lib/data/places'
   import { useMatchSubject } from '$lib/ldoSvelte'
-  import { placeResources } from '$lib/stores/places'
+  import { session } from '$lib/stores/session'
   import 'leaflet/dist/leaflet.css'
   import { rdf, schema_https } from 'rdf-namespaces'
   import { onDestroy, onMount } from 'svelte'
   import { PlaceShapeType } from '../../.ldo/place.shapeTypes'
   import { type GeoCoordinates } from '../../.ldo/place.typings'
 
-  $: $placeResources
+  $effect(() => {
+    if ($session.info.webId)
+      runPlacesQuery($session.info.webId, $session.fetch).then(() => {
+        console.log('query run and finished')
+      })
+  })
 
-  let L: typeof import('leaflet')
-  let map: L.Map
+  const places = useMatchSubject(PlaceShapeType, rdf.type, schema_https.Place)
+
+  let L = $state<typeof import('leaflet')>()
+  let map = $state<L.Map>()
   let mapElement: HTMLDivElement
   let lat = 60
   let lng = 20
@@ -32,34 +40,34 @@
     }
   })
 
-  const places = useMatchSubject(PlaceShapeType, rdf.type, schema_https.Place)
+  $effect(() => {
+    if (L && map && $places.size > 0) {
+      let minLat = Infinity
+      let minLon = Infinity
+      let maxLat = -Infinity
+      let maxLon = -Infinity
 
-  $: if (L && map && $places.size > 0) {
-    let minLat = Infinity
-    let minLon = Infinity
-    let maxLat = -Infinity
-    let maxLon = -Infinity
+      for (const place of $places) {
+        if (place.geo.type.some((t) => t['@id'] === 'GeoCoordinates')) {
+          const geo = place.geo as GeoCoordinates
+          minLat = Math.min(minLat, geo.latitude)
+          maxLat = Math.max(maxLat, geo.latitude)
+          minLon = Math.min(minLon, geo.longitude)
+          maxLon = Math.max(maxLon, geo.longitude)
 
-    $places.forEach((place) => {
-      if (place.geo.type.some((t) => t['@id'] === 'GeoCoordinates')) {
-        const geo = place.geo as GeoCoordinates
-        minLat = Math.min(minLat, geo.latitude)
-        maxLat = Math.max(maxLat, geo.latitude)
-        minLon = Math.min(minLon, geo.longitude)
-        maxLon = Math.max(maxLon, geo.longitude)
+          const markerPopup = `<div><strong>${place.name}</strong></div><div>${place.description}</div>`
 
-        const markerPopup = `<div><strong>${place.name}</strong></div><div>${place.description}</div>`
-
-        L.marker([geo.latitude, geo.longitude]).addTo(map).bindPopup(markerPopup)
+          L.marker([geo.latitude, geo.longitude]).addTo(map).bindPopup(markerPopup)
+        }
       }
-    })
 
-    const bounds = new L.LatLngBounds([minLat, minLon], [maxLat, maxLon])
+      const bounds = new L.LatLngBounds([minLat, minLon], [maxLat, maxLon])
 
-    const paddedBounds = bounds.pad(0.1)
+      const paddedBounds = bounds.pad(0.1)
 
-    if (!map.getBounds().contains(bounds)) map.fitBounds(paddedBounds)
-  }
+      if (!map.getBounds().contains(bounds)) map.fitBounds(paddedBounds)
+    }
+  })
 </script>
 
 <div bind:this={mapElement} class={['leaflet-container', 'map']}></div>

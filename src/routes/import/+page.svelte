@@ -1,8 +1,9 @@
 <script lang="ts">
   import { goto } from '$app/navigation'
   import PlaceItem from '$lib/components/place-item.svelte'
+  import { runPlacesQuery } from '$lib/data/places'
   import { useLdo, useMatchSubject } from '$lib/ldoSvelte'
-  import { placeResources } from '$lib/stores/places'
+  import { session } from '$lib/stores/session'
   import { storages } from '$lib/stores/storages'
   import { set } from '@ldo/ldo'
   import { gpx } from '@tmcw/togeojson'
@@ -12,9 +13,14 @@
   import { PlaceShapeType } from '../../.ldo/place.shapeTypes'
   import type { GeoCoordinates, Place } from '../../.ldo/place.typings'
 
-  $placeResources
+  $effect(() => {
+    if ($session.info.webId)
+      runPlacesQuery($session.info.webId, $session.fetch).then(() => {
+        console.log('query run and finished')
+      })
+  })
 
-  let savedPlaces = useMatchSubject(PlaceShapeType, rdf.type, schema_https.Place, null)
+  const savedPlaces = useMatchSubject(PlaceShapeType, rdf.type, schema_https.Place)
 
   let text = $state('<gpx />')
 

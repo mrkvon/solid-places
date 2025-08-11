@@ -1,9 +1,23 @@
 import { expect, test } from '@playwright/test'
-import { acl, foaf, solid } from 'rdf-namespaces'
+import { foaf, schema_https, solid } from 'rdf-namespaces'
 import { createRandomAccount, signIn } from './utils/account'
 import { createRandomPlace } from './utils/place'
+import { addRegistration, createTypeIndex, setContainerAcl } from './utils/profile'
 
 test.describe('Share', () => {
+  let account: Awaited<ReturnType<typeof createRandomAccount>>
+  test.beforeEach(async () => {
+    account = await createRandomAccount()
+
+    // first some places must exist, so create some places
+    for (let i = 0, len = 10; i < len; ++i) await createRandomPlace(account, 'places/')
+
+    const containerUri = new URL('places/', account.podUrl)
+    await setContainerAcl(account, containerUri)
+    const typeIndexUrl = await createTypeIndex(account)
+    await addRegistration(account, typeIndexUrl, [schema_https.Place], [containerUri])
+  })
+
   // share
   test.fixme('keep a place private by default', async () => {
     // ??
@@ -12,7 +26,6 @@ test.describe('Share', () => {
   // 1. set acl for sharing
   // 2. send a notification to a person or to a public index
   test('share places with specific people', async ({ page }) => {
-    const account = await createRandomAccount()
     const alice = await createRandomAccount()
     const bob = await createRandomAccount()
     const cecilia = await createRandomAccount()
@@ -60,31 +73,13 @@ test.describe('Share', () => {
       `,
     })
     expect(response4.ok).toBe(true)
-    // create a few places
-    for (let i = 0, len = 5; i < len; ++i) {
-      await createRandomPlace(account, 'places/')
-    }
-    // set up places folder as private
-    const result = await account.fetch(new URL('places/.acl', account.podUrl), {
-      method: 'PUT',
-      body: `
-      <#own> a <${acl.Authorization}>;
-      <${acl.agent}> <${account.webId}>;
-      <${acl.accessTo}> <./>;
-      <${acl.default__workaround}> <./>;
-      <${acl.mode}> <${acl.Read}>, <${acl.Write}>, <${acl.Control}> .
-      `,
-      headers: { 'content-type': 'text/turtle' },
-    })
-
-    expect(result.ok).toEqual(true)
 
     // sign in
     await signIn(page, account)
     // go to list
     await page.getByRole('link', { name: 'List' }).click()
     const items = page.getByTestId('place-list').locator('li')
-    await expect(items).toHaveCount(5)
+    await expect(items).toHaveCount(10)
     // click the lock icon
     await items.nth(2).getByRole('button', { name: 'Privacy and sharing: Private' }).click()
 
@@ -124,29 +119,12 @@ test.describe('Share', () => {
   })
 
   test('share places publicly', async ({ page }) => {
-    const account = await createRandomAccount()
-    // create a few places
-    for (let i = 0, len = 5; i < len; ++i) await createRandomPlace(account, 'places/')
-
-    // set up places folder as private
-    const result = await account.fetch(new URL('places/.acl', account.podUrl), {
-      method: 'PUT',
-      body: `
-      <#own> a <${acl.Authorization}>;
-      <${acl.agent}> <${account.webId}>;
-      <${acl.accessTo}> <./>;
-      <${acl.default__workaround}> <./>;
-      <${acl.mode}> <${acl.Read}>, <${acl.Write}>, <${acl.Control}> .
-      `,
-      headers: { 'content-type': 'text/turtle' },
-    })
-    expect(result.ok).toEqual(true)
     // sign in
     await signIn(page, account)
     // go to list
     await page.getByRole('link', { name: 'List' }).click()
     const items = page.getByTestId('place-list').locator('li')
-    await expect(items).toHaveCount(5)
+    await expect(items).toHaveCount(10)
     // click the lock icon
     await items.nth(2).getByRole('button', { name: 'Privacy and sharing: Private' }).click()
 

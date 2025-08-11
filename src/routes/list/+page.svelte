@@ -1,18 +1,24 @@
 <script lang="ts">
   import PlaceItemControl from '$lib/components/place-item-control.svelte'
   import PlaceItem from '$lib/components/place-item.svelte'
+  import { runPlacesQuery } from '$lib/data/places'
   import { useMatchSubject } from '$lib/ldoSvelte'
-  import { placeResources } from '$lib/stores/places'
+  import { session } from '$lib/stores/session'
   import { rdf, schema_https } from 'rdf-namespaces'
   import { PlaceShapeType } from '../../.ldo/place.shapeTypes'
 
-  $: $placeResources
+  $effect(() => {
+    if ($session.info.webId)
+      runPlacesQuery($session.info.webId, $session.fetch).then(() => {
+        console.log('query run and finished')
+      })
+  })
 
-  let data = useMatchSubject(PlaceShapeType, rdf.type, schema_https.Place, null)
+  const places = useMatchSubject(PlaceShapeType, rdf.type, schema_https.Place)
 </script>
 
 <ul data-testid="place-list">
-  {#each $data as place (place['@id'])}
+  {#each $places as place (place['@id'])}
     <li>
       <PlaceItem {place}>
         <PlaceItemControl {place} />

@@ -1,6 +1,8 @@
 import { expect, test } from '@playwright/test'
+import { schema_https } from 'rdf-namespaces'
 import { createRandomAccount, signIn } from './utils/account'
 import { createRandomPlace } from './utils/place'
+import { addRegistration, createTypeIndex, setContainerAcl } from './utils/profile'
 
 test.describe('C(R)UD place', () => {
   test.fixme('can create a place', async () => {})
@@ -8,9 +10,12 @@ test.describe('C(R)UD place', () => {
     const account = await createRandomAccount()
 
     // create some places
-    for (let i = 0, len = 10; i < len; ++i) {
-      await createRandomPlace(account, 'places/')
-    }
+    for (let i = 0, len = 10; i < len; ++i) await createRandomPlace(account, 'places/')
+
+    const containerUri = new URL('places/', account.podUrl)
+    await setContainerAcl(account, containerUri)
+    const typeIndexUrl = await createTypeIndex(account)
+    await addRegistration(account, typeIndexUrl, [schema_https.Place], [containerUri])
 
     await signIn(page, account)
 
@@ -47,9 +52,12 @@ test.describe('C(R)UD place', () => {
     const account = await createRandomAccount()
 
     // first some places must exist, so create some places
-    for (let i = 0, len = 10; i < len; ++i) {
-      await createRandomPlace(account, 'places/')
-    }
+    for (let i = 0, len = 10; i < len; ++i) await createRandomPlace(account, 'places/')
+
+    const containerUri = new URL('places/', account.podUrl)
+    await setContainerAcl(account, containerUri)
+    const typeIndexUrl = await createTypeIndex(account)
+    await addRegistration(account, typeIndexUrl, [schema_https.Place], [containerUri])
 
     await signIn(page, account)
 

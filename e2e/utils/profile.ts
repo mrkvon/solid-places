@@ -1,0 +1,97 @@
+import { expect } from '@playwright/test'
+import { randomUUID } from 'node:crypto'
+import { solid, space } from 'rdf-namespaces'
+
+export const setContainerAcl = async (
+  account: { fetch: typeof globalThis.fetch; webId: string },
+  containerUri: string | URL,
+) => {
+  const res = await account.fetch(new URL('.acl', containerUri), {
+    method: 'PUT',
+    headers: { 'content-type': 'text/turtle' },
+    body: `
+        @prefix acl: <http://www.w3.org/ns/auth/acl#>.
+        <#owner> a acl:Authorization;
+          acl:agent <${account.webId}>;
+          acl:accessTo <./>;
+          acl:default <./>;
+          acl:mode acl:Read, acl:Write, acl:Control.
+        `,
+  })
+  expect(res.ok).toBe(true)
+}
+
+export const createTypeIndex = async (
+  account: { fetch: typeof globalThis.fetch; podUrl: string; webId: string },
+  {
+    isPrivate = true,
+    filename = isPrivate ? 'privateTypeIndex.ttl' : 'publicTypeIndex.ttl',
+  }: { isPrivate?: boolean; filename?: string } = {},
+) => {
+  const preferencesUrl = new URL(`settings/preferences.ttl`, account.podUrl)
+  const typeIndexUrl = new URL(`settings/${filename}`, account.podUrl)
+  if (isPrivate) {
+    const typeIndexLinkResult = await account.fetch(isPrivate ? preferencesUrl : account.webId, {
+      method: 'PATCH',
+      headers: { 'content-type': 'text/n3' },
+      body: `<> a <${solid.InsertDeletePatch}>;
+      <${solid.inserts}> {
+        <${account.webId}> <${isPrivate ? solid.privateTypeIndex : solid.publicTypeIndex}> <${typeIndexUrl}> .
+      } .`,
+    })
+    expect(typeIndexLinkResult.ok).toBe(true)
+  }
+  const preferencesLinkResult = await account.fetch(account.webId, {
+    method: 'PATCH',
+    headers: { 'content-type': 'text/n3' },
+    body: `<> a <${solid.InsertDeletePatch}>;
+      <${solid.inserts}> {
+        <${account.webId}> <${space.preferencesFile}> <${preferencesUrl}> .
+      } .`,
+  })
+  expect(preferencesLinkResult.ok).toBe(true)
+
+  const typeIndexResult = await account.fetch(typeIndexUrl, {
+    method: 'PUT',
+    headers: { 'content-type': 'text/turtle' },
+    body: `
+      <> a <${solid.TypeIndex}>, <${isPrivate ? solid.UnlistedDocument : solid.ListedDocument}>.
+      `,
+  })
+  expect(typeIndexResult.ok).toBe(true)
+
+  return typeIndexUrl
+}
+
+export const addRegistration = async (
+  account: { fetch: typeof globalThis.fetch },
+  typeIndexUrl: string | URL,
+  classes: (string | URL)[],
+  links: (URL | string)[],
+) => {
+  const statements: string[] = []
+  statements.push(`a <${solid.TypeRegistration}>`)
+  if (classes.length > 0)
+    statements.push(`<${solid.forClass}> ${classes.map((c) => `<${c}>`).join(', ')}`)
+
+  const instances = links.filter((l) => !l.toString().endsWith('/'))
+  if (instances.length > 0)
+    statements.push(`<${solid.instance}> ${instances.map((i) => `<${i}>`).join(', ')}`)
+
+  const instanceContainers = links.filter((l) => l.toString().endsWith('/'))
+  if (instanceContainers.length > 0)
+    statements.push(
+      `<${solid.instanceContainer}> ${instanceContainers.map((i) => `<${i}>`).join(', ')}`,
+    )
+
+  const registrationResult = await account.fetch(typeIndexUrl, {
+    method: 'PATCH',
+    headers: { 'content-type': 'text/n3' },
+    body: `<> a <${solid.InsertDeletePatch}>;
+      <${solid.inserts}> {
+        <#${randomUUID()}> ${statements.join(';\n')} .
+      } .`,
+  })
+  console.log(await registrationResult.text())
+  expect(registrationResult.ok).toBe(true)
+}
