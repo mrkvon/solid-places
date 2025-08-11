@@ -1,5 +1,5 @@
 import { dataset } from '$lib/ldoSvelte'
-import { QueryAndStore, run, type RdfQuery } from '@ldhop/core'
+import { fetchRdfDocument, QueryAndStore, type RdfQuery } from '@ldhop/core'
 import { Store } from 'n3'
 import { ldp, rdf, rdfs, schema_https, solid, space } from 'rdf-namespaces'
 
@@ -121,17 +121,43 @@ const personPlaceQuery: RdfQuery = [
   },
 ]
 
-export const runPlacesQuery = async (webId: string, fetch: typeof globalThis.fetch) => {
+export const queryPlaces = async (webId: string, fetch: typeof globalThis.fetch) => {
   // what we already have:
 
   const quads = new Store(dataset.toArray())
 
   const qas = new QueryAndStore(personPlaceQuery, { person: new Set([webId]) }, quads)
-  await run(qas, fetch)
+
+  await executeQuery(qas, fetch, dataset)
 
   console.log(qas.getAllVariables())
 
-  dataset.addAll(qas.store)
-
   return qas
+}
+
+export const executeQuery = async (
+  qas: QueryAndStore,
+  fetch: typeof globalThis.fetch,
+  ldoDataset: typeof dataset,
+) => {
+  let missingResources = qas.getMissingResources()
+  while (missingResources.length > 0) {
+    const res = missingResources[0]
+    try {
+      const { data: quads, response } = await fetchRdfDocument(missingResources[0], fetch)
+      qas.addResource(
+        res,
+        quads,
+        (response === null || response === void 0 ? void 0 : response.ok) ? 'success' : 'error',
+      )
+
+      ldoDataset.addAll(quads)
+    } catch (e) {
+      // __eslint-disable-next-line no-console
+      console.error(e)
+      qas.addResource(res, [], 'error')
+    } finally {
+      missingResources = qas.getMissingResources()
+    }
+  }
 }

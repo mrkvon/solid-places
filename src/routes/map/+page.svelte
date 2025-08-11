@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { runPlacesQuery } from '$lib/data/places'
+  import { queryPlaces } from '$lib/data/places'
   import { useMatchSubject } from '$lib/ldoSvelte'
   import { session } from '$lib/stores/session'
   import 'leaflet/dist/leaflet.css'
@@ -10,7 +10,7 @@
 
   $effect(() => {
     if ($session.info.webId)
-      runPlacesQuery($session.info.webId, $session.fetch).then(() => {
+      queryPlaces($session.info.webId, $session.fetch).then(() => {
         console.log('query run and finished')
       })
   })
