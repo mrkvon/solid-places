@@ -1,0 +1,1 @@
+import{ag as d,ah as h,d as t,R as b,ad as k}from"./CVXStvyL.js";function u(r,a){return r===a||r?.[k]===a}function c(r={},a,f,S){return d(()=>{var i,s;return h(()=>{i=s,s=[],t(()=>{r!==f(...s)&&(a(r,...s),i&&u(f(...i),r)&&a(null,...i))})}),()=>{b(()=>{s&&u(f(...s),r)&&a(null,...s)})}}),r}export{c as b};
