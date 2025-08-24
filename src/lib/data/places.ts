@@ -1,6 +1,6 @@
 import { dataset } from '$lib/ldoSvelte'
-import { fetchRdfDocument, QueryAndStore, type RdfQuery } from '@ldhop/core'
-import { Store } from 'n3'
+import { fetchRdfDocument, LdhopEngine, type LdhopQuery } from '@ldhop/core'
+import { NamedNode, Store } from 'n3'
 import { ldp, rdf, rdfs, schema_https, solid, space } from 'rdf-namespaces'
 
 enum Variable {
@@ -13,12 +13,13 @@ enum Variable {
   typeRegistration = '?typeRegistration',
   placeRegistration = '?placeRegistration',
   placeContainer = '?placeContainer',
+  placeResourceOrUri = '?placeResourceOrUri',
   placeResource = '?placeResource',
   place = '?place',
   extendedPlaceDocument = '?extendedPlaceDocument',
 }
 
-const personPlaceQuery: RdfQuery = [
+const personPlaceQuery: LdhopQuery<Variable> = [
   // find and fetch preferences file
   {
     type: 'match',
@@ -68,6 +69,15 @@ const personPlaceQuery: RdfQuery = [
     type: 'match',
     predicate: rdf.type,
     object: solid.TypeRegistration,
+    graph: Variable.publicTypeIndex,
+    pick: 'subject',
+    target: Variable.typeRegistration,
+  },
+  {
+    type: 'match',
+    predicate: rdf.type,
+    object: solid.TypeRegistration,
+    graph: Variable.privateTypeIndex,
     pick: 'subject',
     target: Variable.typeRegistration,
   },
@@ -98,13 +108,26 @@ const personPlaceQuery: RdfQuery = [
     subject: Variable.placeRegistration,
     predicate: solid.instance,
     pick: 'object',
-    target: Variable.placeResource,
+    target: Variable.placeResourceOrUri,
   },
-  { type: 'add resources', variable: Variable.placeResource },
+  // it should be a resource, but just in case.
+  {
+    type: 'transform variable',
+    source: Variable.placeResourceOrUri,
+    target: Variable.placeResource,
+    transform: (term) => {
+      if (term.termType === 'NamedNode') {
+        const newUrl = new URL(term.id)
+        newUrl.hash = ''
+        return new NamedNode(newUrl.toString())
+      }
+    },
+  },
   {
     type: 'match',
     predicate: rdf.type,
     object: schema_https.Place,
+    graph: Variable.placeResource,
     pick: 'subject',
     target: Variable.place,
   },
@@ -126,7 +149,7 @@ export const queryPlaces = async (webId: string, fetch: typeof globalThis.fetch)
 
   const quads = new Store(dataset.toArray())
 
-  const qas = new QueryAndStore(personPlaceQuery, { person: new Set([webId]) }, quads)
+  const qas = new LdhopEngine(personPlaceQuery, { [Variable.person]: new Set([webId]) }, quads)
 
   await executeQuery(qas, fetch, dataset)
 
@@ -136,28 +159,24 @@ export const queryPlaces = async (webId: string, fetch: typeof globalThis.fetch)
 }
 
 export const executeQuery = async (
-  qas: QueryAndStore,
+  engine: LdhopEngine,
   fetch: typeof globalThis.fetch,
   ldoDataset: typeof dataset,
 ) => {
-  let missingResources = qas.getMissingResources()
-  while (missingResources.length > 0) {
-    const res = missingResources[0]
+  let missingResources = engine.getGraphs(false)
+  while (missingResources.size > 0) {
+    const res = [...missingResources][0]
     try {
-      const { data: quads, response } = await fetchRdfDocument(missingResources[0], fetch)
-      qas.addResource(
-        res,
-        quads,
-        (response === null || response === void 0 ? void 0 : response.ok) ? 'success' : 'error',
-      )
+      const { data: quads, response } = await fetchRdfDocument(res, fetch)
+      engine.addGraph(response?.url ?? res, quads, res)
 
       ldoDataset.addAll(quads)
     } catch (e) {
       // __eslint-disable-next-line no-console
       console.error(e)
-      qas.addResource(res, [], 'error')
+      engine.addGraph(res, [])
     } finally {
-      missingResources = qas.getMissingResources()
+      missingResources = engine.getGraphs(false)
     }
   }
 }
