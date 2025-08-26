@@ -158,25 +158,95 @@ export const queryPlaces = async (webId: string, fetch: typeof globalThis.fetch)
   return qas
 }
 
+// export const executeQuery = async (
+//   engine: LdhopEngine,
+//   fetch: typeof globalThis.fetch,
+//   ldoDataset: typeof dataset,
+// ) => {
+//   let missingResources = engine.getGraphs(false)
+//   while (missingResources.size > 0) {
+//     const res = [...missingResources][0]
+//     try {
+//       const { data: quads, response } = await fetchRdfDocument(res, fetch)
+//       engine.addGraph(response?.url ?? res, quads, res)
+
+//       ldoDataset.addAll(quads)
+//     } catch (e) {
+//       // __eslint-disable-next-line no-console
+//       console.error(e)
+//       engine.addGraph(res, [])
+//     } finally {
+//       missingResources = engine.getGraphs(false)
+//     }
+//   }
+// }
+
 export const executeQuery = async (
   engine: LdhopEngine,
   fetch: typeof globalThis.fetch,
   ldoDataset: typeof dataset,
+  options: { concurrency?: number } = {},
 ) => {
-  let missingResources = engine.getGraphs(false)
-  while (missingResources.size > 0) {
-    const res = [...missingResources][0]
-    try {
-      const { data: quads, response } = await fetchRdfDocument(res, fetch)
-      engine.addGraph(response?.url ?? res, quads, res)
+  const concurrency = Math.max(1, options.concurrency ?? 8)
 
-      ldoDataset.addAll(quads)
-    } catch (e) {
-      // __eslint-disable-next-line no-console
-      console.error(e)
-      engine.addGraph(res, [])
-    } finally {
-      missingResources = engine.getGraphs(false)
+  // Track what we’ve already scheduled to avoid duplicate fetches
+  const seen = new Set<string>()
+  // Queue of resources to fetch next
+  const queue: string[] = []
+  // Currently running fetches
+  const inFlight = new Set<Promise<void>>()
+
+  const schedule = (res: string) => {
+    if (seen.has(res)) return
+    seen.add(res)
+
+    const p = (async () => {
+      try {
+        const { data: quads, response } = await fetchRdfDocument(res, fetch)
+        engine.addGraph(response?.url ?? res, quads, res)
+        ldoDataset.addAll(quads)
+      } catch (e) {
+        console.error(e)
+        engine.addGraph(res, [])
+      }
+    })()
+
+    inFlight.add(p)
+    p.finally(() => {
+      inFlight.delete(p)
+    })
+  }
+
+  // Seed the queue with initial missing resources
+  for (const res of engine.getGraphs(false) as Set<string>) {
+    queue.push(res)
+  }
+
+  const refillFromEngine = () => {
+    for (const res of engine.getGraphs(false) as Set<string>) {
+      if (!seen.has(res)) queue.push(res)
     }
+  }
+
+  const fill = () => {
+    while (inFlight.size < concurrency && queue.length > 0) {
+      const res = queue.shift()!
+      if (seen.has(res)) continue
+      schedule(res)
+    }
+  }
+
+  fill()
+
+  while (inFlight.size > 0 || queue.length > 0) {
+    if (inFlight.size > 0) {
+      await Promise.race([...inFlight])
+    }
+
+    // After any completion, see if new missing graphs appeared and enqueue them
+    refillFromEngine()
+    fill()
+
+    if (inFlight.size === 0 && queue.length === 0) break
   }
 }
