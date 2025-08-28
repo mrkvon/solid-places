@@ -24,6 +24,8 @@ export const createRandomAccount = async () => {
   return { ...account, provider: account.idp, fetch: authenticatedFetch }
 }
 
+export type Account = Awaited<ReturnType<typeof createRandomAccount>>
+
 export const signIn = async (
   page: Page,
   account: { email: string; password: string; idp: string },

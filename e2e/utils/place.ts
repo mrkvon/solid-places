@@ -5,16 +5,32 @@ import { randomUUID } from 'node:crypto'
 import { dct, schema_https as schema, xsd } from 'rdf-namespaces'
 import { createRandomAccount } from './account'
 
-export const generatePlace = () => `
+interface PlaceData {
+  latitude: number
+  longitude: number
+  name: string
+  description: string
+  created: Date
+}
+
+const generateRandomPlaceData = (): PlaceData => ({
+  latitude: faker.location.latitude(),
+  longitude: faker.location.longitude(),
+  name: faker.word.words(),
+  description: faker.word.words(15),
+  created: faker.date.past(),
+})
+
+const generatePlace = (data: PlaceData) => `
   <#place> a <${schema.Place}>;
   <${schema.geo}> [
     a <${schema.GeoCoordinates}>;
-    <${schema.latitude}> ${faker.location.latitude()};
-    <${schema.longitude}> ${faker.location.longitude()}
+    <${schema.latitude}> ${data.latitude};
+    <${schema.longitude}> ${data.longitude}
   ];
-  <${schema.name}> "${faker.word.words()}";
-  <${schema.description}> "${faker.word.words(15)}";
-  <${dct.created}> "${faker.date.past().toISOString()}"^^<${xsd.dateTime}>.
+  <${schema.name}> "${data.name}";
+  <${schema.description}> "${data.description}";
+  <${dct.created}> "${data.created.toISOString()}"^^<${xsd.dateTime}>.
 `
 
 export const createRandomPlace = async (
@@ -23,11 +39,19 @@ export const createRandomPlace = async (
 ) => {
   const container = new URL(containerSlug, account.podUrl)
 
-  const response = await account.fetch(new URL(`place-${randomUUID()}.ttl`, container), {
+  const url = new URL(`place-${randomUUID()}.ttl`, container)
+  const uri = new URL(url)
+  uri.hash = '#place'
+  const data = generateRandomPlaceData()
+  const turtle = generatePlace(data)
+
+  const response = await account.fetch(url, {
     method: 'PUT',
-    body: generatePlace(),
+    body: turtle,
     headers: { 'content-type': 'text/turtle' },
   })
 
   expect(response.ok).toBe(true)
+
+  return { url, uri, data, turtle }
 }

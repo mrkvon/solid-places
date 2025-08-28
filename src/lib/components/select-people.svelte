@@ -5,6 +5,7 @@
   import { foaf, solid } from 'rdf-namespaces'
   import { fly } from 'svelte/transition'
   import { FoafProfileShapeType } from '../../.ldo/foafProfile.shapeTypes'
+  import type { FoafProfile } from '../../.ldo/foafProfile.typings'
   import PersonTag from './person-tag.svelte'
 
   let { value = $bindable(), disabled }: { value: string[]; disabled?: boolean } = $props()
@@ -82,17 +83,24 @@
   let matched = $derived(
     useMatchObject(FoafProfileShapeType, debouncedInputValue, solid.oidcIssuer),
   )
+
+  const handleClickRemove = (profile: FoafProfile) => {
+    value = value.filter((webId) => webId !== profile['@id'])
+  }
 </script>
 
-<div class="flex flex-col gap-1">
+<div>
   <!-- svelte-ignore a11y_label_has_associated_control - $label contains the 'for' attribute -->
   <!-- <label {...$label} use:label>
     <span class="text-sm font-medium text-magnum-900">Select people:</span>
   </label> -->
 
-  <div class="relative">
-    {#each selectedWebIds as webId (webId)}
-      <PersonTag {webId} />{/each}
+  <div>
+    <div class="selected-people">
+      {#each selectedWebIds as webId (webId)}
+        <PersonTag {webId} onClickRemove={handleClickRemove} />
+      {/each}
+    </div>
     <input
       {...$input}
       disabled={disabled || $input.disabled}
@@ -132,7 +140,7 @@
         {:else}
           asdf
         {/if} -->
-        <div class="pl-4">
+        <div>
           <span class="font-medium">{person.name ?? person['@id']}</span>
         </div>
       </li>
@@ -171,5 +179,10 @@
     overflow: hidden;
     border-radius: 0.5rem;
     background-color: white;
+  }
+
+  .selected-people {
+    display: flex;
+    gap: 0.5rem;
   }
 </style>

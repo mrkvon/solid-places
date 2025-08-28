@@ -1,6 +1,7 @@
 import { expect } from '@playwright/test'
 import { randomUUID } from 'node:crypto'
-import { solid, space } from 'rdf-namespaces'
+import { foaf, solid, space } from 'rdf-namespaces'
+import { Account } from './account'
 
 export const setContainerAcl = async (
   account: { fetch: typeof globalThis.fetch; webId: string },
@@ -92,6 +93,31 @@ export const addRegistration = async (
         <#${randomUUID()}> ${statements.join(';\n')} .
       } .`,
   })
-  console.log(await registrationResult.text())
   expect(registrationResult.ok).toBe(true)
+}
+
+interface Profile {
+  name?: string
+  knows?: string[]
+}
+
+export const saveProfile = async (account: Pick<Account, 'fetch' | 'webId'>, profile: Profile) => {
+  let data = ''
+
+  if (profile.name) data += `<${account.webId}> <${foaf.name}> "${profile.name}" .\n`
+
+  if (profile.knows && profile.knows.length > 0)
+    data += `<${account.webId}> <${foaf.knows}> ${profile.knows.map((webId) => `<${webId}>`).join(',')} .`
+
+  if (!data) throw new Error('No data to save')
+
+  const response = await account.fetch(account.webId, {
+    method: 'PATCH',
+    headers: { 'content-type': 'text/n3' },
+    body: `
+        <#patch> a <${solid.InsertDeletePatch}>;
+        <${solid.inserts}> { ${data} }.
+      `,
+  })
+  expect(response.ok).toBe(true)
 }

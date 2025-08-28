@@ -1,16 +1,19 @@
 import { expect, test } from '@playwright/test'
-import { foaf, schema_https, solid } from 'rdf-namespaces'
+import { schema_https } from 'rdf-namespaces'
+import { setAcl } from './utils/access'
 import { createRandomAccount, signIn } from './utils/account'
 import { createRandomPlace } from './utils/place'
-import { addRegistration, createTypeIndex, setContainerAcl } from './utils/profile'
+import { addRegistration, createTypeIndex, saveProfile, setContainerAcl } from './utils/profile'
 
 test.describe('Share', () => {
   let account: Awaited<ReturnType<typeof createRandomAccount>>
+  let places: Awaited<ReturnType<typeof createRandomPlace>>[]
   test.beforeEach(async () => {
     account = await createRandomAccount()
 
     // first some places must exist, so create some places
-    for (let i = 0, len = 10; i < len; ++i) await createRandomPlace(account, 'places/')
+    places = []
+    for (let i = 0, len = 10; i < len; ++i) places.push(await createRandomPlace(account, 'places/'))
 
     const containerUri = new URL('places/', account.podUrl)
     await setContainerAcl(account, containerUri)
@@ -31,48 +34,10 @@ test.describe('Share', () => {
     const cecilia = await createRandomAccount()
 
     // make alice and bob my friends
-    const response = await account.fetch(account.webId, {
-      method: 'PATCH',
-      headers: { 'content-type': 'text/n3' },
-      body: `
-        <#patch> a <${solid.InsertDeletePatch}>;
-        <${solid.inserts}> {
-          <${account.webId}> <${foaf.knows}> <${alice.webId}>, <${bob.webId}>;
-          <${foaf.name}> "Daniela" .
-        }.
-      `,
-    })
-    expect(response.ok).toBe(true)
-
-    const response2 = await alice.fetch(alice.webId, {
-      method: 'PATCH',
-      headers: { 'content-type': 'text/n3' },
-      body: `
-        <#patch> a <${solid.InsertDeletePatch}>;
-        <${solid.inserts}> { <${alice.webId}> <${foaf.name}> "Alice" . }.
-      `,
-    })
-    expect(response2.ok).toBe(true)
-
-    const response3 = await bob.fetch(bob.webId, {
-      method: 'PATCH',
-      headers: { 'content-type': 'text/n3' },
-      body: `
-        <#patch> a <${solid.InsertDeletePatch}>;
-        <${solid.inserts}> { <${bob.webId}> <${foaf.name}> "Bob" . }.
-      `,
-    })
-    expect(response3.ok).toBe(true)
-
-    const response4 = await cecilia.fetch(cecilia.webId, {
-      method: 'PATCH',
-      headers: { 'content-type': 'text/n3' },
-      body: `
-        <#patch> a <${solid.InsertDeletePatch}>;
-        <${solid.inserts}> { <${cecilia.webId}> <${foaf.name}> "Cecilia" . }.
-      `,
-    })
-    expect(response4.ok).toBe(true)
+    await saveProfile(account, { name: 'Daniela', knows: [alice.webId, bob.webId] })
+    await saveProfile(alice, { name: 'Alice' })
+    await saveProfile(bob, { name: 'Bob' })
+    await saveProfile(cecilia, { name: 'Cecilia' })
 
     // sign in
     await signIn(page, account)
@@ -151,8 +116,83 @@ test.describe('Share', () => {
     )
   })
 
-  test.fixme('unshare (shared => private)', async () => {})
-  test.fixme('unpublish (public => private)', async () => {})
+  test('unshare (shared => private)', async ({ page }) => {
+    const alice = await createRandomAccount()
+    await saveProfile(alice, { name: 'Alice' })
+    // const bob = await createRandomAccount()
+    // const cecilia = await createRandomAccount()
+    // set up some places to be shared with other person
+    const sharedPlaceUrl = places[5].url
+    await setAcl(account, sharedPlaceUrl.toString(), {
+      agent: {
+        [alice.webId]: { read: true, write: false, append: false, control: false },
+      },
+    })
+
+    // sign in
+    await signIn(page, account)
+    await page.getByRole('link', { name: 'List' }).click()
+    const items = page.getByTestId('place-list').locator('li')
+    await expect(items).toHaveCount(10)
+
+    // test that the place shows as shared
+    // click the lock icon
+    const item = items.filter({ hasText: places[5].data.name })
+    await item.getByRole('button', { name: 'Privacy and sharing: Shared' }).click()
+    // remove the other person from shared
+    await page.getByRole('button', { name: 'Remove Alice' }).click()
+
+    // click confirm
+    await page.getByRole('button', { name: 'Confirm' }).click()
+    // acl should get updated
+    // and the lock icon changes to a lock
+    await expect(item.getByRole('button', { name: 'Privacy and sharing: Private' })).toBeVisible()
+    await expect(page.getByTestId('toast-container').getByRole('alert')).toHaveCount(1)
+    // and the user is informed by toast that the place was made private
+    await expect(page.getByTestId('toast-container').getByRole('alert').nth(0)).toContainText(
+      'Access was updated to private',
+    )
+    // // and the user is informed by toast that Alice was informed
+    // await expect(page.getByTestId('toast-container').getByRole('alert').nth(1)).toContainText(
+    //   'Alice was notified',
+    // )
+  })
+
+  test('unpublish (public => private)', async ({ page }) => {
+    // set up some place to be public
+    const publicPlaceUrl = places[5].url
+    await setAcl(account, publicPlaceUrl.toString(), {
+      public: { read: true, write: false, append: false, control: false },
+    })
+
+    // sign in
+    await signIn(page, account)
+    await page.getByRole('link', { name: 'List' }).click()
+    const items = page.getByTestId('place-list').locator('li')
+    await expect(items).toHaveCount(10)
+
+    // test that the place shows as public
+    // click the earth icon
+    const item = items.filter({ hasText: places[5].data.name })
+    await item.getByRole('button', { name: 'Privacy and sharing: Public' }).click()
+    // select private
+    await page.getByRole('radio', { name: 'Private' }).click()
+
+    // click confirm
+    await page.getByRole('button', { name: 'Confirm' }).click()
+    // acl should get updated
+    // and the lock icon changes to a lock
+    await expect(item.getByRole('button', { name: 'Privacy and sharing: Private' })).toBeVisible()
+    await expect(page.getByTestId('toast-container').getByRole('alert')).toHaveCount(2)
+    // and the user is informed by toast that the place was made private
+    await expect(page.getByTestId('toast-container').getByRole('alert').nth(0)).toContainText(
+      'Access was updated to private',
+    )
+    // and the user is informed by toast that the public index was informed
+    await expect(page.getByTestId('toast-container').getByRole('alert').nth(1)).toContainText(
+      'Public geoindex was notified',
+    )
+  })
 
   // read
   test.fixme('see places shared with me', async () => {})

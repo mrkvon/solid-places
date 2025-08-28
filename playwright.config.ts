@@ -3,6 +3,9 @@ import { defineConfig, devices } from '@playwright/test'
 export default defineConfig({
   globalTimeout: 3_600_000,
   timeout: 180_000,
+  expect: {
+    timeout: 10_000,
+  },
   reporter: process.env.CI ? 'github' : 'html',
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */

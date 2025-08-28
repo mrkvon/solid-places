@@ -59,10 +59,7 @@
   ) => {
     const file = event.currentTarget.files?.[0]
 
-    if (file) {
-      text = await file.text()
-      // console.log('File content:', text)
-    }
+    if (file) text = await file.text()
   }
 
   const { createData, commitData } = useLdo()

@@ -149,13 +149,11 @@ export const queryPlaces = async (webId: string, fetch: typeof globalThis.fetch)
 
   const quads = new Store(dataset.toArray())
 
-  const qas = new LdhopEngine(personPlaceQuery, { [Variable.person]: new Set([webId]) }, quads)
+  const engine = new LdhopEngine(personPlaceQuery, { [Variable.person]: new Set([webId]) }, quads)
 
-  await executeQuery(qas, fetch, dataset)
+  await executeQuery(engine, fetch, dataset)
 
-  console.log(qas.getAllVariables())
-
-  return qas
+  return engine
 }
 
 // export const executeQuery = async (
