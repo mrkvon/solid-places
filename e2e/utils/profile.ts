@@ -1,25 +1,14 @@
 import { expect } from '@playwright/test'
 import { randomUUID } from 'node:crypto'
 import { foaf, solid, space } from 'rdf-namespaces'
+import { setAcl } from './access'
 import { Account } from './account'
 
 export const setContainerAcl = async (
   account: { fetch: typeof globalThis.fetch; webId: string },
   containerUri: string | URL,
 ) => {
-  const res = await account.fetch(new URL('.acl', containerUri), {
-    method: 'PUT',
-    headers: { 'content-type': 'text/turtle' },
-    body: `
-        @prefix acl: <http://www.w3.org/ns/auth/acl#>.
-        <#owner> a acl:Authorization;
-          acl:agent <${account.webId}>;
-          acl:accessTo <./>;
-          acl:default <./>;
-          acl:mode acl:Read, acl:Write, acl:Control.
-        `,
-  })
-  expect(res.ok).toBe(true)
+  await setAcl(account, containerUri.toString(), { owner: { default: true } })
 }
 
 export const createTypeIndex = async (
