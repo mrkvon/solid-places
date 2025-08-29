@@ -1,21 +1,25 @@
 <script lang="ts">
   import Toaster from '$lib/components/toast.svelte'
   import Header from '$lib/header.svelte'
+  import { QueryClient, QueryClientProvider } from '@tanstack/svelte-query'
   import '../app.css'
 
+  const queryClient = new QueryClient()
   let { children } = $props()
 </script>
 
-<div class="layout">
-  <header class="header">
-    <Header />
-  </header>
-  <main class="main">
-    {@render children()}
-  </main>
-</div>
+<QueryClientProvider client={queryClient}>
+  <div class="layout">
+    <header class="header">
+      <Header />
+    </header>
+    <main class="main">
+      {@render children()}
+    </main>
+  </div>
 
-<Toaster />
+  <Toaster />
+</QueryClientProvider>
 
 <style>
   :global(html, body) {

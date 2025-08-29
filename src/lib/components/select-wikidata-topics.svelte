@@ -1,12 +1,14 @@
 <script lang="ts">
   import { type Topic, searchInterests } from '$lib/data/topics'
   import { createCombobox } from '@melt-ui/svelte'
+  import { createQuery } from '@tanstack/svelte-query'
+  import { derived, writable } from 'svelte/store'
   import { fly } from 'svelte/transition'
   import TopicTag from './topic-tag.svelte'
 
   let { value = $bindable(), disabled }: { value: string[]; disabled?: boolean } = $props()
 
-  let selectedWebIds = $state<string[]>([])
+  let selectedTopics = $state<string[]>([])
 
   const {
     elements: { menu, input, option, label },
@@ -16,7 +18,7 @@
     multiple: true,
     onSelectedChange: (event) => {
       const nextIds = event.next?.map((x) => x.value) ?? []
-      selectedWebIds = nextIds
+      selectedTopics = nextIds
       value = nextIds
       $inputValue = ''
       $open = false
@@ -39,7 +41,8 @@
     debounceTimer = setTimeout(callback, 450)
   }
 
-  let topicsFound = $state<Topic[]>([])
+  const debounced$ = writable('')
+  $effect(() => debounced$.set(debouncedInputValue))
 
   let debouncedInputValue = $state('')
 
@@ -54,14 +57,18 @@
     }
   })
 
-  $effect(() => {
-    searchInterests(debouncedInputValue, 'en').then((results) => {
-      topicsFound = results
-    })
-  })
+  const queryOptions = derived(debounced$, (debouncedInputValue) => ({
+    queryKey: ['topic', debouncedInputValue, 'en'],
+    queryFn: () => searchInterests(debouncedInputValue, 'en'),
+    initialData: [],
+    initialDataUpdatedAt: 0,
+    staleTime: 300_000,
+  }))
+
+  const query = createQuery(queryOptions)
 
   let options = $derived(
-    topicsFound.filter(
+    $query.data.filter(
       (f) =>
         f.label?.toLowerCase().includes($inputValue.toLowerCase()) ||
         f.aliases.some((alias) => alias.toLowerCase().includes($inputValue.toLowerCase())),
@@ -78,7 +85,7 @@
 <div>
   <div>
     <div class="selected-topics">
-      {#each selectedWebIds as uri (uri)}
+      {#each selectedTopics as uri (uri)}
         <TopicTag {uri} onClickRemove={handleClickRemove} />
       {/each}
     </div>
@@ -113,7 +120,6 @@
     {:else}
       <li>No results found</li>
     {/each}
-    <!-- </div> -->
   </ul>
 {/if}
 

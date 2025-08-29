@@ -1,27 +1,28 @@
 <script lang="ts">
   import { readInterest, type Topic } from '$lib/data/topics'
   import { X } from '@lucide/svelte'
+  import { createQuery } from '@tanstack/svelte-query'
 
   let { uri, onClickRemove }: { uri: string; onClickRemove?: (topic: Topic) => void } = $props()
 
-  let topic = $state<Topic>({ uri, id: uri.split('/').pop(), aliases: [] })
-
-  $effect(() => {
-    readInterest(uri, 'en').then((t) => {
-      topic = t
-    })
+  const query = createQuery({
+    queryKey: ['topic', uri, 'en'],
+    queryFn: () => readInterest(uri, 'en'),
+    initialData: { uri, aliases: [], id: uri.split('/').pop() },
+    initialDataUpdatedAt: 0,
+    staleTime: 300_000,
   })
 </script>
 
 <div class="tag" data-testid="topic-tag">
-  {#if topic.image}
-    <img class="image" src={topic.image} alt={topic.label} />
+  {#if $query.data.image}
+    <img class="image" src={$query.data.image} alt={$query.data.label} />
   {/if}
-  {topic.label ?? topic.id}
+  {$query.data.label ?? $query.data.id}
   {#if onClickRemove}
     <button
-      aria-label={`Remove ${topic.label ?? ''}`}
-      onclick={() => onClickRemove(topic)}
+      aria-label={`Remove ${$query.data.label ?? ''}`}
+      onclick={() => onClickRemove($query.data)}
       type="button"
     >
       <X aria-hidden="true" size="1.25rem" />

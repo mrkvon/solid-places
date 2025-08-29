@@ -54,6 +54,7 @@
     "@ldo/solid": "^1.0.0-alpha.1",
     "@ldo/svelte": "^1.0.0-alpha.28",
     "@lucide/svelte": "^0.535.0",
+    "@tanstack/svelte-query": "^5.85.5",
     "@tmcw/togeojson": "^7.1.2",
     "@types/geojson": "^7946.0.16",
     "@types/lodash": "^4.17.20",
