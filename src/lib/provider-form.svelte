@@ -1,5 +1,5 @@
 <script lang="ts">
-  let formData = { provider: '' }
+  let formData = $state({ provider: '' })
 
   let { onsave }: { onsave: (data: typeof formData) => void } = $props()
 

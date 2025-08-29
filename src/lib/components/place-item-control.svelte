@@ -3,10 +3,12 @@
   import { useLdo } from '$lib/ldoSvelte'
   import { session } from '$lib/stores/session'
   import { deleteResource, SolidLeaf } from '@ldo/connected-solid'
+  import { set } from '@ldo/ldo'
   import { Pencil, Trash2, X } from '@lucide/svelte'
   import { createDialog } from '@melt-ui/svelte'
   import type { GeoCoordinates, Place } from '../../.ldo/place.typings'
   import AccessControl from './access-control.svelte'
+  import SelectWikidataTopics from './select-wikidata-topics.svelte'
 
   const { place }: { place: Place } = $props()
 
@@ -17,12 +19,13 @@
     states: { open },
   } = createDialog()
 
-  const formData = {
+  const formData = $state({
     name: place.name,
     description: place.description,
     latitude: (place.geo as GeoCoordinates).latitude,
     longitude: (place.geo as GeoCoordinates).longitude,
-  }
+    topics: place.topic?.map((t) => t['@id']) ?? [],
+  })
 
   const handleUpdate = async (event: SubmitEvent) => {
     event.preventDefault()
@@ -32,6 +35,7 @@
     const newPlace = changeData(place, resource as SolidLeaf)
     newPlace.name = formData.name
     newPlace.description = formData.description
+    newPlace.topic = set(...formData.topics.map((t) => ({ '@id': t })))
     const result = await commitData(newPlace)
     if (result.isError) throw result
     $open = false
@@ -111,6 +115,7 @@
             bind:value={formData.description}
           ></textarea>
         </div>
+        <SelectWikidataTopics bind:value={formData.topics} />
         <button type="submit">Update place</button>
       </form>
       <button class="close" {...$close} use:close><X /></button>

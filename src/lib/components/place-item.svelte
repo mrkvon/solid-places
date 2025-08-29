@@ -3,6 +3,7 @@
   import type { Geometry } from 'geojson'
   import { type Snippet } from 'svelte'
   import type { GeoCoordinates, Place } from '../../.ldo/place.typings'
+  import TopicTag from './topic-tag.svelte'
 
   const { place, children }: { place: Place; children?: Snippet } = $props()
 
@@ -20,6 +21,13 @@
   </div>
   <div class="info">
     <date>{place.created}</date>
+    {#if place.topic}
+      <ul class="topics">
+        {#each place.topic as topic (topic['@id'])}
+          <li><TopicTag uri={topic['@id']} /></li>
+        {/each}
+      </ul>
+    {/if}
     <header>{place.name}</header>
     <p>{place.description}</p>
   </div>
@@ -47,5 +55,10 @@
 
   .info header {
     font-weight: bold;
+  }
+
+  .topics {
+    display: flex;
+    gap: 0.5rem;
   }
 </style>

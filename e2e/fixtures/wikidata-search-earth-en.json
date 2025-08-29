@@ -1,0 +1,343 @@
+{
+  "searchinfo": { "search": "earth" },
+  "search": [
+    {
+      "id": "Q2",
+      "title": "Q2",
+      "pageid": 130,
+      "concepturi": "http://www.wikidata.org/entity/Q2",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q2",
+      "display": {
+        "label": { "value": "Earth", "language": "en" },
+        "description": {
+          "value": "third planet from the Sun in the Solar System",
+          "language": "en"
+        }
+      },
+      "label": "Earth",
+      "description": "third planet from the Sun in the Solar System",
+      "match": { "type": "label", "language": "en", "text": "Earth" }
+    },
+    {
+      "id": "Q36133",
+      "title": "Q36133",
+      "pageid": 38788,
+      "concepturi": "http://www.wikidata.org/entity/Q36133",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q36133",
+      "display": {
+        "label": { "value": "soil", "language": "en" },
+        "description": {
+          "value": "natural body consisting of layers that are primarily composed of minerals",
+          "language": "en"
+        }
+      },
+      "label": "soil",
+      "description": "natural body consisting of layers that are primarily composed of minerals",
+      "match": { "type": "alias", "language": "en", "text": "earth" },
+      "aliases": ["earth"]
+    },
+    {
+      "id": "Q28974",
+      "title": "Q28974",
+      "pageid": 32312,
+      "concepturi": "http://www.wikidata.org/entity/Q28974",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q28974",
+      "display": {
+        "label": { "value": "Earth, Wind & Fire", "language": "en" },
+        "description": { "value": "American funk band from Chicago", "language": "en" }
+      },
+      "label": "Earth, Wind & Fire",
+      "description": "American funk band from Chicago",
+      "match": { "type": "label", "language": "en", "text": "Earth, Wind & Fire" }
+    },
+    {
+      "id": "Q7944",
+      "title": "Q7944",
+      "pageid": 9206,
+      "concepturi": "http://www.wikidata.org/entity/Q7944",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q7944",
+      "display": {
+        "label": { "value": "earthquake", "language": "en" },
+        "description": {
+          "value": "result of a sudden release of energy in the Earth's crust that creates seismic waves",
+          "language": "en"
+        }
+      },
+      "label": "earthquake",
+      "description": "result of a sudden release of energy in the Earth's crust that creates seismic waves",
+      "match": { "type": "label", "language": "en", "text": "earthquake" }
+    },
+    {
+      "id": "Q573",
+      "title": "Q573",
+      "pageid": 844,
+      "concepturi": "http://www.wikidata.org/entity/Q573",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q573",
+      "display": {
+        "label": { "value": "day", "language": "en" },
+        "description": {
+          "value": "unit of time lasting 24 hours, derived from the period of Earth's rotation about its axis",
+          "language": "en"
+        }
+      },
+      "label": "day",
+      "description": "unit of time lasting 24 hours, derived from the period of Earth's rotation about its axis",
+      "match": { "type": "alias", "language": "en", "text": "Earth day" },
+      "aliases": ["Earth day"]
+    },
+    {
+      "id": "Q47670",
+      "title": "Q47670",
+      "pageid": 49779,
+      "concepturi": "http://www.wikidata.org/entity/Q47670",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q47670",
+      "display": {
+        "label": { "value": "Black Sabbath", "language": "en" },
+        "description": { "value": "British heavy metal band", "language": "en" }
+      },
+      "label": "Black Sabbath",
+      "description": "British heavy metal band",
+      "match": { "type": "alias", "language": "en", "text": "Earth" },
+      "aliases": ["Earth"]
+    },
+    {
+      "id": "Q83697636",
+      "title": "Q83697636",
+      "pageid": 83007423,
+      "concepturi": "http://www.wikidata.org/entity/Q83697636",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q83697636",
+      "display": {
+        "label": { "value": "Earth", "language": "en" },
+        "description": {
+          "value": "planet Earth as depicted in the 1987\u20131996 Teenage Mutant Ninja Turtles animated television series",
+          "language": "en"
+        }
+      },
+      "label": "Earth",
+      "description": "planet Earth as depicted in the 1987\u20131996 Teenage Mutant Ninja Turtles animated television series",
+      "match": { "type": "label", "language": "en", "text": "Earth" }
+    },
+    {
+      "id": "Q133792",
+      "title": "Q133792",
+      "pageid": 135559,
+      "concepturi": "http://www.wikidata.org/entity/Q133792",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q133792",
+      "display": {
+        "label": { "value": "globe", "language": "en" },
+        "description": { "value": "scale model of a celestial body", "language": "en" }
+      },
+      "label": "globe",
+      "description": "scale model of a celestial body",
+      "match": { "type": "alias", "language": "en", "text": "Earth globe" },
+      "aliases": ["Earth globe"]
+    },
+    {
+      "id": "Q405",
+      "title": "Q405",
+      "pageid": 611,
+      "concepturi": "http://www.wikidata.org/entity/Q405",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q405",
+      "display": {
+        "label": { "value": "Moon", "language": "en" },
+        "description": { "value": "Earth's only natural satellite", "language": "en" }
+      },
+      "label": "Moon",
+      "description": "Earth's only natural satellite",
+      "match": { "type": "alias", "language": "en", "text": "Earth I" },
+      "aliases": ["Earth I"]
+    },
+    {
+      "id": "Q83697695",
+      "title": "Q83697695",
+      "pageid": 83007483,
+      "concepturi": "http://www.wikidata.org/entity/Q83697695",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q83697695",
+      "display": {
+        "label": { "value": "Earth", "language": "en" },
+        "description": {
+          "value": "planet Earth as depicted in the 2003\u20132009 Teenage Mutant Ninja Turtles animated television series",
+          "language": "en"
+        }
+      },
+      "label": "Earth",
+      "description": "planet Earth as depicted in the 2003\u20132009 Teenage Mutant Ninja Turtles animated television series",
+      "match": { "type": "label", "language": "en", "text": "Earth" }
+    },
+    {
+      "id": "Q115410539",
+      "title": "Q115410539",
+      "pageid": 109991183,
+      "concepturi": "http://www.wikidata.org/entity/Q115410539",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q115410539",
+      "display": {
+        "label": { "value": "human world", "language": "en" },
+        "description": { "value": "world of humans in several mythologies", "language": "en" }
+      },
+      "label": "human world",
+      "description": "world of humans in several mythologies",
+      "match": { "type": "alias", "language": "en", "text": "earth" },
+      "aliases": ["earth"]
+    },
+    {
+      "id": "Q83698907",
+      "title": "Q83698907",
+      "pageid": 83008730,
+      "concepturi": "http://www.wikidata.org/entity/Q83698907",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q83698907",
+      "display": {
+        "label": { "value": "Earth", "language": "en" },
+        "description": {
+          "value": "planet Earth as depicted in the Teenage Mutant Ninja Turtles Adventures and Mutanimals Comics",
+          "language": "en"
+        }
+      },
+      "label": "Earth",
+      "description": "planet Earth as depicted in the Teenage Mutant Ninja Turtles Adventures and Mutanimals Comics",
+      "match": { "type": "label", "language": "en", "text": "Earth" }
+    },
+    {
+      "id": "Q73634409",
+      "title": "Q73634409",
+      "pageid": 73270821,
+      "concepturi": "http://www.wikidata.org/entity/Q73634409",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q73634409",
+      "display": {
+        "label": { "value": "Earth", "language": "en" },
+        "description": {
+          "value": "planet Earth as depicted in Teenage Mutant Ninja Turtles",
+          "language": "en"
+        }
+      },
+      "label": "Earth",
+      "description": "planet Earth as depicted in Teenage Mutant Ninja Turtles",
+      "match": { "type": "label", "language": "en", "text": "Earth" }
+    },
+    {
+      "id": "Q2299452",
+      "title": "Q2299452",
+      "pageid": 2221228,
+      "concepturi": "http://www.wikidata.org/entity/Q2299452",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q2299452",
+      "display": {
+        "label": { "value": "Earth, Moon, and Planets", "language": "en" },
+        "description": { "value": "scientific journal", "language": "en" }
+      },
+      "label": "Earth, Moon, and Planets",
+      "description": "scientific journal",
+      "match": { "type": "label", "language": "en", "text": "Earth, Moon, and Planets" }
+    },
+    {
+      "id": "Q83697788",
+      "title": "Q83697788",
+      "pageid": 83007574,
+      "concepturi": "http://www.wikidata.org/entity/Q83697788",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q83697788",
+      "display": {
+        "label": { "value": "Earth", "language": "en" },
+        "description": {
+          "value": "planet Earth as depicted in the 2012\u20132017 Teenage Mutant Ninja Turtles animated television series",
+          "language": "en"
+        }
+      },
+      "label": "Earth",
+      "description": "planet Earth as depicted in the 2012\u20132017 Teenage Mutant Ninja Turtles animated television series",
+      "match": { "type": "label", "language": "en", "text": "Earth" }
+    },
+    {
+      "id": "Q63463572",
+      "title": "Q63463572",
+      "pageid": 63189402,
+      "concepturi": "http://www.wikidata.org/entity/Q63463572",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q63463572",
+      "display": {
+        "label": { "value": "Earth", "language": "en" },
+        "description": {
+          "value": "planet Earth as depicted in the anime and manga franchise \"One Punch-Man\".",
+          "language": "en"
+        }
+      },
+      "label": "Earth",
+      "description": "planet Earth as depicted in the anime and manga franchise \"One Punch-Man\".",
+      "match": { "type": "label", "language": "en", "text": "Earth" }
+    },
+    {
+      "id": "Q20857910",
+      "title": "Q20857910",
+      "pageid": 22601506,
+      "concepturi": "http://www.wikidata.org/entity/Q20857910",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q20857910",
+      "display": {
+        "label": { "value": "Earth Surface Dynamics", "language": "en" },
+        "description": { "value": "open access academic journal", "language": "en" }
+      },
+      "label": "Earth Surface Dynamics",
+      "description": "open access academic journal",
+      "match": { "type": "label", "language": "en", "text": "Earth Surface Dynamics" }
+    },
+    {
+      "id": "Q3046455",
+      "title": "Q3046455",
+      "pageid": 2912123,
+      "concepturi": "http://www.wikidata.org/entity/Q3046455",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q3046455",
+      "display": {
+        "label": { "value": "Earth and Planetary Science Letters", "language": "en" },
+        "description": { "value": "journal", "language": "en" }
+      },
+      "label": "Earth and Planetary Science Letters",
+      "description": "journal",
+      "match": { "type": "label", "language": "en", "text": "Earth and Planetary Science Letters" }
+    },
+    {
+      "id": "Q1005907",
+      "title": "Q1005907",
+      "pageid": 955373,
+      "concepturi": "http://www.wikidata.org/entity/Q1005907",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q1005907",
+      "display": {
+        "label": { "value": "Earth", "language": "en" },
+        "description": { "value": "planet Earth as depicted in Star Trek", "language": "en" }
+      },
+      "label": "Earth",
+      "description": "planet Earth as depicted in Star Trek",
+      "match": { "type": "label", "language": "en", "text": "Earth" }
+    },
+    {
+      "id": "Q222818",
+      "title": "Q222818",
+      "pageid": 217550,
+      "concepturi": "http://www.wikidata.org/entity/Q222818",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q222818",
+      "display": {
+        "label": { "value": "Eartha Kitt", "language": "en" },
+        "description": { "value": "American singer and actress (1927\u20132008)", "language": "en" }
+      },
+      "label": "Eartha Kitt",
+      "description": "American singer and actress (1927\u20132008)",
+      "match": { "type": "label", "language": "en", "text": "Eartha Kitt" }
+    }
+  ],
+  "search-continue": 20,
+  "success": 1
+}

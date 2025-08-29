@@ -1,0 +1,327 @@
+{
+  "searchinfo": { "search": "universe" },
+  "search": [
+    {
+      "id": "Q1",
+      "title": "Q1",
+      "pageid": 129,
+      "concepturi": "http://www.wikidata.org/entity/Q1",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q1",
+      "display": {
+        "label": { "value": "Universe", "language": "en" },
+        "description": {
+          "value": "totality consisting of space, time, matter and energy",
+          "language": "en"
+        }
+      },
+      "label": "Universe",
+      "description": "totality consisting of space, time, matter and energy",
+      "match": { "type": "label", "language": "en", "text": "Universe" }
+    },
+    {
+      "id": "Q69170",
+      "title": "Q69170",
+      "pageid": 71886,
+      "concepturi": "http://www.wikidata.org/entity/Q69170",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q69170",
+      "display": {
+        "label": { "value": "Universe", "language": "en" },
+        "description": { "value": "2003 album by Modern Talking", "language": "en" }
+      },
+      "label": "Universe",
+      "description": "2003 album by Modern Talking",
+      "match": { "type": "label", "language": "en", "text": "Universe" }
+    },
+    {
+      "id": "Q45980736",
+      "title": "Q45980736",
+      "pageid": 47130979,
+      "concepturi": "http://www.wikidata.org/entity/Q45980736",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q45980736",
+      "display": {
+        "label": { "value": "Universe", "language": "en" },
+        "description": { "value": "2017 EP by EXO", "language": "en" }
+      },
+      "label": "Universe",
+      "description": "2017 EP by EXO",
+      "match": { "type": "label", "language": "en", "text": "Universe" }
+    },
+    {
+      "id": "Q7894198",
+      "title": "Q7894198",
+      "pageid": 7831719,
+      "concepturi": "http://www.wikidata.org/entity/Q7894198",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q7894198",
+      "display": {
+        "label": { "value": "Universe", "language": "en" },
+        "description": {
+          "value": "science fiction video game by Omnitrend Software",
+          "language": "en"
+        }
+      },
+      "label": "Universe",
+      "description": "science fiction video game by Omnitrend Software",
+      "match": { "type": "label", "language": "en", "text": "Universe" }
+    },
+    {
+      "id": "Q26714838",
+      "title": "Q26714838",
+      "pageid": 28646569,
+      "concepturi": "http://www.wikidata.org/entity/Q26714838",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q26714838",
+      "display": {
+        "label": { "value": "Universe", "language": "en" },
+        "description": { "value": "family name", "language": "en" }
+      },
+      "label": "Universe",
+      "description": "family name",
+      "match": { "type": "label", "language": "en", "text": "Universe" }
+    },
+    {
+      "id": "Q50816190",
+      "title": "Q50816190",
+      "pageid": 51755488,
+      "concepturi": "http://www.wikidata.org/entity/Q50816190",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q50816190",
+      "display": {
+        "label": { "value": "Universe", "language": "en" },
+        "description": {
+          "value": "Academic journal published by MDPI AG , covering the subjects: Science: Physics: Nuclear and particle physics. Atomic energy. Radioactivity: Elementary particle physics",
+          "language": "en"
+        }
+      },
+      "label": "Universe",
+      "description": "Academic journal published by MDPI AG , covering the subjects: Science: Physics: Nuclear and particle physics. Atomic energy. Radioactivity: Elementary particle physics",
+      "match": { "type": "label", "language": "en", "text": "Universe" }
+    },
+    {
+      "id": "Q36906466",
+      "title": "Q36906466",
+      "pageid": 38287106,
+      "concepturi": "http://www.wikidata.org/entity/Q36906466",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q36906466",
+      "display": {
+        "label": { "value": "universe", "language": "en" },
+        "description": {
+          "value": "class of which Our Universe is an instance, and parallel universes, if any, are also instances",
+          "language": "en"
+        }
+      },
+      "label": "universe",
+      "description": "class of which Our Universe is an instance, and parallel universes, if any, are also instances",
+      "match": { "type": "label", "language": "en", "text": "universe" }
+    },
+    {
+      "id": "Q7894204",
+      "title": "Q7894204",
+      "pageid": 7831725,
+      "concepturi": "http://www.wikidata.org/entity/Q7894204",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q7894204",
+      "display": {
+        "label": { "value": "Universe", "language": "en" },
+        "description": {
+          "value": "series of seventeen annual science fiction anthologies edited by Terry Carr",
+          "language": "en"
+        }
+      },
+      "label": "Universe",
+      "description": "series of seventeen annual science fiction anthologies edited by Terry Carr",
+      "match": { "type": "label", "language": "en", "text": "Universe" }
+    },
+    {
+      "id": "Q597663",
+      "title": "Q597663",
+      "pageid": 562440,
+      "concepturi": "http://www.wikidata.org/entity/Q597663",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q597663",
+      "display": {
+        "label": { "value": "universe", "language": "en" },
+        "description": {
+          "value": "in set theory, a set large enough such that most ordinary mathematical constructions can take place within it",
+          "language": "en"
+        }
+      },
+      "label": "universe",
+      "description": "in set theory, a set large enough such that most ordinary mathematical constructions can take place within it",
+      "match": { "type": "label", "language": "en", "text": "universe" }
+    },
+    {
+      "id": "Q9366785",
+      "title": "Q9366785",
+      "pageid": 9472589,
+      "concepturi": "http://www.wikidata.org/entity/Q9366785",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q9366785",
+      "display": {
+        "label": { "value": "Universe", "language": "en" },
+        "description": { "value": "Polish band", "language": "en" }
+      },
+      "label": "Universe",
+      "description": "Polish band",
+      "match": { "type": "label", "language": "en", "text": "Universe" }
+    },
+    {
+      "id": "Q4005836",
+      "title": "Q4005836",
+      "pageid": 3819061,
+      "concepturi": "http://www.wikidata.org/entity/Q4005836",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q4005836",
+      "display": {
+        "label": { "value": "Universe", "language": "en" },
+        "description": { "value": "1994 video game", "language": "en" }
+      },
+      "label": "Universe",
+      "description": "1994 video game",
+      "match": { "type": "label", "language": "en", "text": "Universe" }
+    },
+    {
+      "id": "Q19786052",
+      "title": "Q19786052",
+      "pageid": 21388611,
+      "concepturi": "http://www.wikidata.org/entity/Q19786052",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q19786052",
+      "display": {
+        "label": { "value": "Star Wars universe", "language": "en" },
+        "description": { "value": "fictional background of Star Wars", "language": "en" }
+      },
+      "label": "Star Wars universe",
+      "description": "fictional background of Star Wars",
+      "match": { "type": "alias", "language": "en", "text": "Universe of Star Wars" },
+      "aliases": ["Universe of Star Wars"]
+    },
+    {
+      "id": "Q105010281",
+      "title": "Q105010281",
+      "pageid": 100414545,
+      "concepturi": "http://www.wikidata.org/entity/Q105010281",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q105010281",
+      "display": {
+        "label": { "value": "Universe", "language": "en" },
+        "description": { "value": "South Korean mobile app and web platform", "language": "en" }
+      },
+      "label": "Universe",
+      "description": "South Korean mobile app and web platform",
+      "match": { "type": "label", "language": "en", "text": "Universe" }
+    },
+    {
+      "id": "Q1159506",
+      "title": "Q1159506",
+      "pageid": 1105680,
+      "concepturi": "http://www.wikidata.org/entity/Q1159506",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q1159506",
+      "display": {
+        "label": { "value": "Universe", "language": "en" },
+        "description": { "value": "Danish attraction / science park", "language": "en" }
+      },
+      "label": "Universe",
+      "description": "Danish attraction / science park",
+      "match": { "type": "label", "language": "en", "text": "Universe" }
+    },
+    {
+      "id": "Q7894196",
+      "title": "Q7894196",
+      "pageid": 7831717,
+      "concepturi": "http://www.wikidata.org/entity/Q7894196",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q7894196",
+      "display": {
+        "label": { "value": "Universe", "language": "en" },
+        "description": { "value": "1960 black-and-white short documentary", "language": "en" }
+      },
+      "label": "Universe",
+      "description": "1960 black-and-white short documentary",
+      "match": { "type": "label", "language": "en", "text": "Universe" }
+    },
+    {
+      "id": "Q13161077",
+      "title": "Q13161077",
+      "pageid": 14741129,
+      "concepturi": "http://www.wikidata.org/entity/Q13161077",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q13161077",
+      "display": {
+        "label": { "value": "Universe", "language": "en" },
+        "description": { "value": "1999 film by Shivamani", "language": "en" }
+      },
+      "label": "Universe",
+      "description": "1999 film by Shivamani",
+      "match": { "type": "label", "language": "en", "text": "Universe" }
+    },
+    {
+      "id": "Q18395054",
+      "title": "Q18395054",
+      "pageid": 19929195,
+      "concepturi": "http://www.wikidata.org/entity/Q18395054",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q18395054",
+      "display": {
+        "label": { "value": "Universe", "language": "en" },
+        "description": { "value": "2014 album by Mohombi", "language": "en" }
+      },
+      "label": "Universe",
+      "description": "2014 album by Mohombi",
+      "match": { "type": "label", "language": "en", "text": "Universe" }
+    },
+    {
+      "id": "Q624131",
+      "title": "Q624131",
+      "pageid": 587039,
+      "concepturi": "http://www.wikidata.org/entity/Q624131",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q624131",
+      "display": {
+        "label": { "value": "Hyundai Universe", "language": "en" },
+        "description": { "value": "Hyundai coach", "language": "en" }
+      },
+      "label": "Hyundai Universe",
+      "description": "Hyundai coach",
+      "match": { "type": "alias", "language": "en", "text": "Universe" },
+      "aliases": ["Universe"]
+    },
+    {
+      "id": "Q2651803",
+      "title": "Q2651803",
+      "pageid": 2556043,
+      "concepturi": "http://www.wikidata.org/entity/Q2651803",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q2651803",
+      "display": {
+        "label": { "value": "Universe", "language": "en" },
+        "description": { "value": "1997 single by Savage Garden", "language": "en" }
+      },
+      "label": "Universe",
+      "description": "1997 single by Savage Garden",
+      "match": { "type": "label", "language": "en", "text": "Universe" }
+    },
+    {
+      "id": "Q29888262",
+      "title": "Q29888262",
+      "pageid": 31515321,
+      "concepturi": "http://www.wikidata.org/entity/Q29888262",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q29888262",
+      "display": {
+        "label": { "value": "Universe 3", "language": "en" },
+        "description": { "value": "1989 video game", "language": "en" }
+      },
+      "label": "Universe 3",
+      "description": "1989 video game",
+      "match": { "type": "label", "language": "en", "text": "Universe 3" }
+    }
+  ],
+  "search-continue": 20,
+  "success": 1
+}

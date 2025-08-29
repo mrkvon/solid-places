@@ -1,0 +1,333 @@
+{
+  "searchinfo": { "search": "life" },
+  "search": [
+    {
+      "id": "Q463198",
+      "title": "Q463198",
+      "pageid": 436889,
+      "concepturi": "http://www.wikidata.org/entity/Q463198",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q463198",
+      "display": {
+        "label": { "value": "Life", "language": "en" },
+        "description": { "value": "American magazine published 1883-2000", "language": "en" }
+      },
+      "label": "Life",
+      "description": "American magazine published 1883-2000",
+      "match": { "type": "label", "language": "en", "text": "Life" }
+    },
+    {
+      "id": "Q11229033",
+      "title": "Q11229033",
+      "pageid": 12379995,
+      "concepturi": "http://www.wikidata.org/entity/Q11229033",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q11229033",
+      "display": {
+        "label": { "value": "Life", "language": "en" },
+        "description": { "value": "1994 studio album by Kenji Ozawa", "language": "en" }
+      },
+      "label": "Life",
+      "description": "1994 studio album by Kenji Ozawa",
+      "match": { "type": "label", "language": "en", "text": "Life" }
+    },
+    {
+      "id": "Q86675907",
+      "title": "Q86675907",
+      "pageid": 85921630,
+      "concepturi": "http://www.wikidata.org/entity/Q86675907",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q86675907",
+      "display": {
+        "label": { "value": "Life", "language": "en" },
+        "description": { "value": "2018 single by Zivert", "language": "en" }
+      },
+      "label": "Life",
+      "description": "2018 single by Zivert",
+      "match": { "type": "label", "language": "en", "text": "Life" }
+    },
+    {
+      "id": "Q37221362",
+      "title": "Q37221362",
+      "pageid": 38599118,
+      "concepturi": "http://www.wikidata.org/entity/Q37221362",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q37221362",
+      "display": {
+        "label": { "value": "Life", "language": "en" },
+        "description": { "value": "family name", "language": "en" }
+      },
+      "label": "Life",
+      "description": "family name",
+      "match": { "type": "label", "language": "en", "text": "Life" }
+    },
+    {
+      "id": "Q3",
+      "title": "Q3",
+      "pageid": 131,
+      "concepturi": "http://www.wikidata.org/entity/Q3",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q3",
+      "display": {
+        "label": { "value": "life", "language": "en" },
+        "description": {
+          "value": "matter capable of extracting energy from the environment for replication",
+          "language": "en"
+        }
+      },
+      "label": "life",
+      "description": "matter capable of extracting energy from the environment for replication",
+      "match": { "type": "label", "language": "en", "text": "life" }
+    },
+    {
+      "id": "Q17064586",
+      "title": "Q17064586",
+      "pageid": 18669659,
+      "concepturi": "http://www.wikidata.org/entity/Q17064586",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q17064586",
+      "display": {
+        "label": { "value": "Life", "language": "en" },
+        "description": { "value": "scientific journal", "language": "en" }
+      },
+      "label": "Life",
+      "description": "scientific journal",
+      "match": { "type": "label", "language": "en", "text": "Life" }
+    },
+    {
+      "id": "Q2996394",
+      "title": "Q2996394",
+      "pageid": 2865073,
+      "concepturi": "http://www.wikidata.org/entity/Q2996394",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q2996394",
+      "display": {
+        "label": { "value": "biological process", "language": "en" },
+        "description": {
+          "value": "process specifically pertinent to the functioning of integrated living units",
+          "language": "en"
+        }
+      },
+      "label": "biological process",
+      "description": "process specifically pertinent to the functioning of integrated living units",
+      "match": { "type": "alias", "language": "en", "text": "life processes" },
+      "aliases": ["life processes"]
+    },
+    {
+      "id": "Q13100823",
+      "title": "Q13100823",
+      "pageid": 14642153,
+      "concepturi": "http://www.wikidata.org/entity/Q13100823",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q13100823",
+      "display": {
+        "label": { "value": "quality of life", "language": "en" },
+        "description": {
+          "value": "term for the quality of the various domains in human life and general well-being of individuals and societies",
+          "language": "en"
+        }
+      },
+      "label": "quality of life",
+      "description": "term for the quality of the various domains in human life and general well-being of individuals and societies",
+      "match": { "type": "alias", "language": "en", "text": "life quality" },
+      "aliases": ["life quality"]
+    },
+    {
+      "id": "Q420",
+      "title": "Q420",
+      "pageid": 632,
+      "concepturi": "http://www.wikidata.org/entity/Q420",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q420",
+      "display": {
+        "label": { "value": "biology", "language": "en" },
+        "description": {
+          "value": "scientific study of living things, especially their structure, function, growth, evolution, and distribution",
+          "language": "en"
+        }
+      },
+      "label": "biology",
+      "description": "scientific study of living things, especially their structure, function, growth, evolution, and distribution",
+      "match": { "type": "alias", "language": "en", "text": "life sciences" },
+      "aliases": ["life sciences"]
+    },
+    {
+      "id": "Q11230060",
+      "title": "Q11230060",
+      "pageid": 12380839,
+      "concepturi": "http://www.wikidata.org/entity/Q11230060",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q11230060",
+      "display": {
+        "label": { "value": "Life", "language": "en" },
+        "description": { "value": "2005 studio album by Naoto Kine", "language": "en" }
+      },
+      "label": "Life",
+      "description": "2005 studio album by Naoto Kine",
+      "match": { "type": "label", "language": "en", "text": "Life" }
+    },
+    {
+      "id": "Q5256275",
+      "title": "Q5256275",
+      "pageid": 5025725,
+      "concepturi": "http://www.wikidata.org/entity/Q5256275",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q5256275",
+      "display": {
+        "label": { "value": "Life Sciences", "language": "en" },
+        "description": { "value": "peer-reviewed scientific journal", "language": "en" }
+      },
+      "label": "Life Sciences",
+      "description": "peer-reviewed scientific journal",
+      "match": { "type": "label", "language": "en", "text": "Life Sciences" }
+    },
+    {
+      "id": "Q131327",
+      "title": "Q131327",
+      "pageid": 133184,
+      "concepturi": "http://www.wikidata.org/entity/Q131327",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q131327",
+      "display": {
+        "label": { "value": "homelessness", "language": "en" },
+        "description": {
+          "value": "circumstance when people desire a permanent dwelling but do not have one",
+          "language": "en"
+        }
+      },
+      "label": "homelessness",
+      "description": "circumstance when people desire a permanent dwelling but do not have one",
+      "match": { "type": "alias", "language": "en", "text": "life on the street" },
+      "aliases": ["life on the street"]
+    },
+    {
+      "id": "Q136778",
+      "title": "Q136778",
+      "pageid": 138527,
+      "concepturi": "http://www.wikidata.org/entity/Q136778",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q136778",
+      "display": {
+        "label": { "value": "LG Group", "language": "en" },
+        "description": {
+          "value": "South Korean multinational conglomerate corporation",
+          "language": "en"
+        }
+      },
+      "label": "LG Group",
+      "description": "South Korean multinational conglomerate corporation",
+      "match": { "type": "alias", "language": "en", "text": "Life's Good" },
+      "aliases": ["Life's Good"]
+    },
+    {
+      "id": "Q188419",
+      "title": "Q188419",
+      "pageid": 187088,
+      "concepturi": "http://www.wikidata.org/entity/Q188419",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q188419",
+      "display": {
+        "label": { "value": "life expectancy", "language": "en" },
+        "description": {
+          "value": "statistical measure of how long a person or organism may live, based on factors of their life",
+          "language": "en"
+        }
+      },
+      "label": "life expectancy",
+      "description": "statistical measure of how long a person or organism may live, based on factors of their life",
+      "match": { "type": "label", "language": "en", "text": "life expectancy" }
+    },
+    {
+      "id": "Q19379347",
+      "title": "Q19379347",
+      "pageid": 20986411,
+      "concepturi": "http://www.wikidata.org/entity/Q19379347",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q19379347",
+      "display": {
+        "label": { "value": "Life", "language": "en" },
+        "description": { "value": "1988 studio album by Shatoo", "language": "en" }
+      },
+      "label": "Life",
+      "description": "1988 studio album by Shatoo",
+      "match": { "type": "label", "language": "en", "text": "Life" }
+    },
+    {
+      "id": "Q132745266",
+      "title": "Q132745266",
+      "pageid": 126601936,
+      "concepturi": "http://www.wikidata.org/entity/Q132745266",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q132745266",
+      "display": {
+        "label": { "value": "Life", "language": "en" },
+        "description": { "value": "1928 poem", "language": "en" }
+      },
+      "label": "Life",
+      "description": "1928 poem",
+      "match": { "type": "label", "language": "en", "text": "Life" }
+    },
+    {
+      "id": "Q35153181",
+      "title": "Q35153181",
+      "pageid": 36579452,
+      "concepturi": "http://www.wikidata.org/entity/Q35153181",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q35153181",
+      "display": {
+        "label": { "value": "L\u00effe", "language": "en" },
+        "description": { "value": "male given name", "language": "en" }
+      },
+      "label": "L\u00effe",
+      "description": "male given name",
+      "match": { "type": "label", "language": "en", "text": "L\u00effe" }
+    },
+    {
+      "id": "Q130541300",
+      "title": "Q130541300",
+      "pageid": 124486002,
+      "concepturi": "http://www.wikidata.org/entity/Q130541300",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q130541300",
+      "display": {
+        "label": { "value": "life", "language": "en" },
+        "description": { "value": "group of operating system software", "language": "en" }
+      },
+      "label": "life",
+      "description": "group of operating system software",
+      "match": { "type": "label", "language": "en", "text": "life" }
+    },
+    {
+      "id": "Q941419",
+      "title": "Q941419",
+      "pageid": 891589,
+      "concepturi": "http://www.wikidata.org/entity/Q941419",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q941419",
+      "display": {
+        "label": { "value": "Life", "language": "en" },
+        "description": { "value": "American television series", "language": "en" }
+      },
+      "label": "Life",
+      "description": "American television series",
+      "match": { "type": "label", "language": "en", "text": "Life" }
+    },
+    {
+      "id": "Q22675021",
+      "title": "Q22675021",
+      "pageid": 24699937,
+      "concepturi": "http://www.wikidata.org/entity/Q22675021",
+      "repository": "wikidata",
+      "url": "//www.wikidata.org/wiki/Q22675021",
+      "display": {
+        "label": { "value": "lifetime", "language": "en" },
+        "description": { "value": "duration of life for an organism", "language": "en" }
+      },
+      "label": "lifetime",
+      "description": "duration of life for an organism",
+      "match": { "type": "label", "language": "en", "text": "lifetime" }
+    }
+  ],
+  "search-continue": 20,
+  "success": 1
+}
