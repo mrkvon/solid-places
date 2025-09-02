@@ -91,24 +91,11 @@
   .header a:hover,
   .header .loading:hover,
   .header button:hover {
-    background-color: lightpink;
+    background-color: pink;
   }
 
   .header .spacer {
     flex-grow: 1;
-  }
-
-  :global(.spinning) {
-    animation: spin 0.8s linear infinite;
-  }
-
-  @keyframes spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(-360deg);
-    }
   }
 
   dialog {

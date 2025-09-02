@@ -2,6 +2,7 @@
   import type { WacRule } from '@ldo/connected-solid'
   import { Earth, LoaderCircle, LockKeyhole, UsersRound, X } from '@lucide/svelte'
   import { createDialog } from '@melt-ui/svelte'
+  import Button from './button.svelte'
   import SelectPeople from './select-people.svelte'
 
   let {
@@ -94,7 +95,7 @@
       <Earth aria-hidden="true" color={isOwner ? 'green' : 'black'} />
     {/if}
   </button>
-{:else}<LoaderCircle />
+{:else}<LoaderCircle class="spinning" />
 {/if}
 
 {#if $open}
@@ -140,7 +141,7 @@
           /><label for="public" aria-label="Public"><Earth aria-hidden="true" /></label>
         </div>
 
-        <button type="submit">Confirm</button>
+        <Button type="submit" variant="primary">Confirm</Button>
       </form>
       <button class="close" {...$close} use:close><X /></button>
     </div>

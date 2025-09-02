@@ -1,4 +1,6 @@
 <script lang="ts">
+  import Button from './components/button.svelte'
+
   let formData = $state({ provider: '' })
 
   let { onsave }: { onsave: (data: typeof formData) => void } = $props()
@@ -13,7 +15,7 @@
 
 <form onsubmit={handleSubmit}>
   <input type="url" bind:value={formData.provider} required placeholder="Identity Provider" />
-  <button type="submit">Sign In</button>
+  <Button as="button" variant="primary" type="submit">Sign In</Button>
 </form>
 
 <style>

@@ -1,5 +1,6 @@
 <script lang="ts">
   import { goto } from '$app/navigation'
+  import Button from '$lib/components/button.svelte'
   import PlaceItem from '$lib/components/place-item.svelte'
   import { queryPlaces } from '$lib/data/places'
   import { useLdo, useMatchSubject } from '$lib/ldoSvelte'
@@ -95,9 +96,9 @@
 
 <form onsubmit={handleConfirmImport}>
   {#if places.length}
-    <button type="submit">
+    <Button type="submit">
       Import ({Array.from(formData.values()).filter((v) => v === true).length}/{places.length})
-    </button>
+    </Button>
   {/if}
   <ul>
     {#each places as place, j}
