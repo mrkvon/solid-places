@@ -6,6 +6,8 @@ import { session } from './session'
 export const storages = readable<SolidContainer[]>([], (set) => {
   // Subscribe to the source store
   const unsubscribe = session.subscribe(async (session) => {
+    console.log(session.info)
+
     if (!session.info.isLoggedIn) {
       set([])
       return

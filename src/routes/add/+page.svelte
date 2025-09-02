@@ -1,26 +1,17 @@
 <script lang="ts">
   import { goto } from '$app/navigation'
+  import PlaceForm from '$lib/components/place-form.svelte'
+  import type { PlaceData } from '$lib/data/validation/place'
   import { useLdo } from '$lib/ldoSvelte'
   import { storages } from '$lib/stores/storages'
   import { set } from '@ldo/ldo'
   import { PlaceShapeType } from '../../.ldo/place.shapeTypes'
 
-  interface FormData {
-    name: string
-    description: string
-    latitude: number | null
-    longitude: number | null
-  }
-
-  const defaultData: FormData = { name: '', description: '', latitude: null, longitude: null }
-  let formData = defaultData
-
   const { createData, commitData } = useLdo()
 
-  const onSubmit = async (event: SubmitEvent) => {
-    event.preventDefault()
-
+  const onsubmit = async (formData: PlaceData) => {
     const storage = $storages[0]
+    if (!storage) throw new Error('no storage')
     const childResult = await storage.createChildIfAbsent('places/')
     if (childResult.isError) throw childResult
     const placeResult = await childResult.resource.createChildIfAbsent(
@@ -35,48 +26,15 @@
       latitude: formData.latitude!,
       longitude: formData.longitude!,
     }
-
     place.name = formData.name
     if (formData.description) place.description = formData.description
+    place.topic = set(...formData.topics.map((t) => ({ ['@id']: t })))
 
     await commitData(place)
 
-    formData = defaultData
     goto('list')
   }
 </script>
 
-<form onsubmit={onSubmit}>
-  <input type="text" placeholder="name" bind:value={formData.name} required />
-  <textarea placeholder="description" name="description" bind:value={formData.description}
-  ></textarea>
-  <input
-    type="number"
-    step="any"
-    id="latitude"
-    name="latitude"
-    placeholder="latitude"
-    bind:value={formData.latitude}
-    required
-  />
-  <input
-    type="number"
-    step="any"
-    name="longitude"
-    placeholder="longitude"
-    bind:value={formData.longitude}
-    required
-  />
-  <input type="submit" value="Add place" disabled={$storages.length === 0} />
-</form>
-
-<pre>{JSON.stringify(formData, null, 2)}</pre>
-
-<style>
-  form {
-    padding: 0.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-</style>
+{#snippet submit()}Add place{/snippet}
+<PlaceForm place={{}} {submit} {onsubmit} />

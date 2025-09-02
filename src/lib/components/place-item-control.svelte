@@ -1,5 +1,6 @@
 <script lang="ts">
   import { addToast, ToastType } from '$lib/components/toast.svelte'
+  import type { PlaceData } from '$lib/data/validation/place'
   import { useLdo } from '$lib/ldoSvelte'
   import { session } from '$lib/stores/session'
   import { deleteResource, SolidLeaf } from '@ldo/connected-solid'
@@ -8,7 +9,7 @@
   import { createDialog } from '@melt-ui/svelte'
   import type { GeoCoordinates, Place } from '../../.ldo/place.typings'
   import AccessControl from './access-control.svelte'
-  import SelectWikidataTopics from './select-wikidata-topics.svelte'
+  import PlaceForm from './place-form.svelte'
 
   const { place }: { place: Place } = $props()
 
@@ -19,16 +20,7 @@
     states: { open },
   } = createDialog()
 
-  const formData = $state({
-    name: place.name,
-    description: place.description,
-    latitude: (place.geo as GeoCoordinates).latitude,
-    longitude: (place.geo as GeoCoordinates).longitude,
-    topics: place.topic?.map((t) => t['@id']) ?? [],
-  })
-
-  const handleUpdate = async (event: SubmitEvent) => {
-    event.preventDefault()
+  const handleUpdate = async (formData: PlaceData) => {
     const { name } = place
     const resource = dataset.getResource(place['@id']!)
     if (resource.isError) throw resource
@@ -101,23 +93,18 @@
       <p {...$description} use:description>
         <!-- Make changes to your place here. Click "Update place" when you're finished. -->
       </p>
-      <form onsubmit={handleUpdate}>
-        <div class="field">
-          <label for="name">Name</label>
-          <input id="name" type="text" name="name" placeholder="name" bind:value={formData.name} />
-        </div>
-        <div class="field">
-          <label for="description">Description</label>
-          <textarea
-            id="description"
-            name="description"
-            placeholder="description"
-            bind:value={formData.description}
-          ></textarea>
-        </div>
-        <SelectWikidataTopics bind:value={formData.topics} />
-        <button type="submit">Update place</button>
-      </form>
+      {#snippet submit()}Update place{/snippet}
+      <PlaceForm
+        place={{
+          name: place.name,
+          description: place.description,
+          latitude: (place.geo as GeoCoordinates).latitude,
+          longitude: (place.geo as GeoCoordinates).longitude,
+          topics: place.topic?.map((t) => t['@id']) ?? [],
+        }}
+        onsubmit={handleUpdate}
+        {submit}
+      />
       <button class="close" {...$close} use:close><X /></button>
     </div>
   </div>
@@ -169,19 +156,6 @@
 
   .title {
     font-weight: bold;
-  }
-
-  /* this particular dialog */
-
-  form {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .field {
-    display: flex;
-    flex-direction: column;
   }
 
   /* Combobox */
