@@ -13,9 +13,9 @@
   let selectedWebIds = $state<string[]>([])
 
   const {
-    elements: { menu, input, option, label },
+    elements: { menu, input, option /*, label*/ },
     states: { open, inputValue, touchedInput, selected },
-    helpers: { isSelected, isHighlighted },
+    // helpers: { isSelected, isHighlighted },
   } = createCombobox<string, true>({
     multiple: true,
     onSelectedChange: (event) => {
@@ -49,7 +49,7 @@
     debounceTimer = setTimeout(callback, 450)
   }
 
-  let a = useLinkQuery(FoafProfileShapeType, $session.info.webId!, $session.info.webId!, {
+  useLinkQuery(FoafProfileShapeType, $session.info.webId!, $session.info.webId!, {
     name: true,
     knows: { name: true },
   })
@@ -90,11 +90,6 @@
 </script>
 
 <div>
-  <!-- svelte-ignore a11y_label_has_associated_control - $label contains the 'for' attribute -->
-  <!-- <label {...$label} use:label>
-    <span class="text-sm font-medium text-magnum-900">Select people:</span>
-  </label> -->
-
   <div>
     <div class="selected-people">
       {#each selectedWebIds as webId (webId)}
@@ -123,8 +118,6 @@
         {$personByWebId.name ?? $personByWebId['@id']}
       </li>
     {/if}
-    <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
-    <!-- <div tabindex="0"> -->
     {#each options as person (person['@id'])}
       <li
         {...$option({
@@ -133,13 +126,6 @@
         })}
         use:option
       >
-        <!-- {#if $isSelected(person['@id'])}
-          <div class="check absolute left-2 top-1/2 z-10 text-magnum-900">
-            <Check class="size-4" />
-          </div>
-        {:else}
-          asdf
-        {/if} -->
         <div>
           <span class="font-medium">{person.name ?? person['@id']}</span>
         </div>
@@ -152,7 +138,6 @@
         No results found
       </li>
     {/each}
-    <!-- </div> -->
   </ul>
 {/if}
 

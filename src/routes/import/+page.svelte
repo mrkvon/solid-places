@@ -1,5 +1,6 @@
 <script lang="ts">
   import { goto } from '$app/navigation'
+  import { resolve } from '$app/paths'
   import Button from '$lib/components/button.svelte'
   import PlaceItem from '$lib/components/place-item.svelte'
   import { queryPlaces } from '$lib/data/places'
@@ -86,7 +87,7 @@
         await commitData(placeData)
       }
     }
-    goto('map')
+    goto(resolve('/map'))
   }
 </script>
 
@@ -101,7 +102,7 @@
     </Button>
   {/if}
   <ul>
-    {#each places as place, j}
+    {#each places as place, j (`${place.geo.latitude} ${place.geo.longitude} ${place.name}`)}
       {@const duplicateOf = places.find(
         (p, i) => i < j && p !== place && haversine(p.geo, place.geo) < 50,
       )}

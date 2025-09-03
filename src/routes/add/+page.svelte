@@ -1,5 +1,6 @@
 <script lang="ts">
   import { goto } from '$app/navigation'
+  import { resolve } from '$app/paths'
   import PlaceForm from '$lib/components/place-form.svelte'
   import type { PlaceData } from '$lib/data/validation/place'
   import { useLdo } from '$lib/ldoSvelte'
@@ -32,7 +33,7 @@
 
     await commitData(place)
 
-    goto('list')
+    goto(resolve('/list'))
   }
 </script>
 

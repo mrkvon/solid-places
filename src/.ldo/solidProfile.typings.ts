@@ -1,4 +1,4 @@
-import { LdoJsonldContext, LdSet } from "@ldo/ldo";
+import { LdoJsonldContext, LdSet } from '@ldo/ldo'
 
 /**
  * =============================================================================
@@ -10,89 +10,89 @@ import { LdoJsonldContext, LdSet } from "@ldo/ldo";
  * SolidProfile Type
  */
 export interface SolidProfile {
-  "@id"?: string;
-  "@context"?: LdoJsonldContext;
+  '@id'?: string
+  '@context'?: LdoJsonldContext
   /**
    * Defines the node as a Person (from foaf)
    */
   type: LdSet<{
-    "@id": "Person";
-  }>;
+    '@id': 'Person'
+  }>
   /**
    * The user's LDP inbox to which apps can post notifications
    */
   inbox?: {
-    "@id": string;
-  };
+    '@id': string
+  }
   /**
    * The user's preferences
    */
   preferencesFile?: {
-    "@id": string;
-  };
+    '@id': string
+  }
   /**
    * The location of a Solid storage server related to this WebId
    */
   storage?: LdSet<{
-    "@id": string;
-  }>;
+    '@id': string
+  }>
   /**
    * The user's account
    */
   account?: {
-    "@id": string;
-  };
+    '@id': string
+  }
   /**
    * A registry of all types used on the user's Pod (for private access only)
    */
-  privateTypeIndex?: LdSet<TypeIndex>;
+  privateTypeIndex?: LdSet<TypeIndex>
   /**
    * A registry of all types used on the user's Pod (for public access)
    */
-  publicTypeIndex?: LdSet<TypeIndex>;
+  publicTypeIndex?: LdSet<TypeIndex>
   /**
    * Solid OIDC issuer for a webId.
    */
   oidcIssuer: LdSet<{
-    "@id": string;
-  }>;
+    '@id': string
+  }>
 }
 
 /**
  * TypeIndex Type
  */
 export interface TypeIndex {
-  "@id"?: string;
-  "@context"?: LdoJsonldContext;
+  '@id'?: string
+  '@context'?: LdoJsonldContext
   type?: LdSet<
     | {
-        "@id": "TypeIndex";
+        '@id': 'TypeIndex'
       }
     | {
-        "@id": "ListedDocument";
+        '@id': 'ListedDocument'
       }
     | {
-        "@id": "UnlistedDocument";
+        '@id': 'UnlistedDocument'
       }
-  >;
+  >
 }
 
 /**
  * TypeRegistration Type
  */
 export interface TypeRegistration {
-  "@id"?: string;
-  "@context"?: LdoJsonldContext;
+  '@id'?: string
+  '@context'?: LdoJsonldContext
   type: LdSet<{
-    "@id": "TypeRegistration";
-  }>;
+    '@id': 'TypeRegistration'
+  }>
   forClass: LdSet<{
-    "@id": string;
-  }>;
+    '@id': string
+  }>
   instance?: LdSet<{
-    "@id": string;
-  }>;
+    '@id': string
+  }>
   instanceContainer?: LdSet<{
-    "@id": string;
-  }>;
+    '@id': string
+  }>
 }

@@ -17,7 +17,7 @@
     globalThis.location.href = '/'
   }
 
-  const resource = useResource($session.info.webId)
+  useResource($session.info.webId)
   const profile = useSubject(FoafProfileShapeType, $session.info.webId)
 
   const name = $derived($profile?.name)

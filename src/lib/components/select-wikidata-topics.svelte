@@ -11,9 +11,9 @@
   let selectedTopics = $state<string[]>([])
 
   const {
-    elements: { menu, input, option, label },
+    elements: { menu, input, option /*, label*/ },
     states: { open, inputValue, touchedInput, selected },
-    helpers: { isSelected, isHighlighted },
+    // helpers: { isSelected, isHighlighted },
   } = createCombobox<string, true>({
     multiple: true,
     onSelectedChange: (event) => {

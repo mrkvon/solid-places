@@ -1,4 +1,4 @@
-import { LdoJsonldContext, LdSet } from "@ldo/ldo";
+import { LdoJsonldContext, LdSet } from '@ldo/ldo'
 
 /**
  * =============================================================================
@@ -10,50 +10,50 @@ import { LdoJsonldContext, LdSet } from "@ldo/ldo";
  * Place Type
  */
 export interface Place {
-  "@id"?: string;
-  "@context"?: LdoJsonldContext;
+  '@id'?: string
+  '@context'?: LdoJsonldContext
   type: LdSet<{
-    "@id": "Place";
-  }>;
-  name: string;
-  description?: string;
-  geo: GeoCoordinates | GeoShape;
+    '@id': 'Place'
+  }>
+  name: string
+  description?: string
+  geo: GeoCoordinates | GeoShape
   topic?: LdSet<{
-    "@id": string;
-  }>;
+    '@id': string
+  }>
   sameAs?: LdSet<{
-    "@id": string;
-  }>;
+    '@id': string
+  }>
   seeAlso?: LdSet<{
-    "@id": string;
-  }>;
-  created?: string;
-  modified?: LdSet<string>;
+    '@id': string
+  }>
+  created?: string
+  modified?: LdSet<string>
   creator?: {
-    "@id": string;
-  };
+    '@id': string
+  }
 }
 
 /**
  * GeoCoordinates Type
  */
 export interface GeoCoordinates {
-  "@id"?: string;
-  "@context"?: LdoJsonldContext;
+  '@id'?: string
+  '@context'?: LdoJsonldContext
   type: LdSet<{
-    "@id": "GeoCoordinates";
-  }>;
-  latitude: number;
-  longitude: number;
+    '@id': 'GeoCoordinates'
+  }>
+  latitude: number
+  longitude: number
 }
 
 /**
  * GeoShape Type
  */
 export interface GeoShape {
-  "@id"?: string;
-  "@context"?: LdoJsonldContext;
+  '@id'?: string
+  '@context'?: LdoJsonldContext
   type: LdSet<{
-    "@id": "GeoShape";
-  }>;
+    '@id': 'GeoShape'
+  }>
 }

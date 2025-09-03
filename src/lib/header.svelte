@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { resolve } from '$app/paths'
   import ProviderForm from '$lib/provider-form.svelte'
   import { session } from '$lib/stores/session'
   import {
@@ -42,12 +43,12 @@
 </script>
 
 <nav class="header">
-  <a href="/" aria-label="Home" title="Home"><House aria-hidden="true" /></a>
-  <a href="map" aria-label="Map" title="Map"><Map aria-hidden="true" /></a>
-  <a href="list" aria-label="List" title="List"><List aria-hidden="true" /></a>
+  <a href={resolve('/')} aria-label="Home" title="Home"><House aria-hidden="true" /></a>
+  <a href={resolve('/map')} aria-label="Map" title="Map"><Map aria-hidden="true" /></a>
+  <a href={resolve('/list')} aria-label="List" title="List"><List aria-hidden="true" /></a>
   <div class="spacer"></div>
-  <a href="add" aria-label="Add Place" title="Add Place"><Plus aria-hidden="true" /></a>
-  <a href="import" aria-label="Import from GPX" title="Import from GPX"
+  <a href={resolve('/add')} aria-label="Add Place" title="Add Place"><Plus aria-hidden="true" /></a>
+  <a href={resolve('/import')} aria-label="Import from GPX" title="Import from GPX"
     ><Upload aria-hidden="true" /></a
   >
   {#if !redirectHandled}

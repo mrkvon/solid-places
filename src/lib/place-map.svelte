@@ -10,8 +10,11 @@
     geometry.type === 'Point' ? [geometry.coordinates[1], geometry.coordinates[0]] : [51, 0],
   )
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let Map = $state<any>(null)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let Marker = $state<any>(null)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let TileLayer = $state<any>(null)
 
   onMount(async () => {
