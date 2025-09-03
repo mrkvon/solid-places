@@ -1,0 +1,1 @@
+import"../chunks/DsnmJJEf.js";import"../chunks/B4oz0gRF.js";import{f as t,a as e,n as o}from"../chunks/ZmOcAfe1.js";var p=t("Intro or redirect to map <div>Keep and share your favourite places using Solid protocol</div>",1);function s(r){o();var a=p();o(),e(r,a)}export{s as component};
